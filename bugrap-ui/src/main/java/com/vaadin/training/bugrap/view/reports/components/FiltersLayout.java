@@ -1,6 +1,8 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
+import com.vaadin.training.bugrap.domain.entity.ReportStatus;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
+import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
@@ -11,9 +13,9 @@ import java.util.List;
 
 public class FiltersLayout extends HorizontalLayout {
 
-    private Presenter presenter;
+    private ReportsPresenter presenter;
 
-    public void setPresenter(Presenter presenter) {
+    public void setPresenter(ReportsPresenter presenter) {
         this.presenter = presenter;
     }
 

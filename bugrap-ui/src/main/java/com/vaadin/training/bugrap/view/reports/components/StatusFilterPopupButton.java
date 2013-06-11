@@ -1,8 +1,8 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
 import com.vaadin.data.Property;
-import com.vaadin.training.bugrap.domain.ReportResolution;
-import com.vaadin.training.bugrap.domain.ReportStatus;
+import com.vaadin.training.bugrap.domain.entity.ReportResolution;
+import com.vaadin.training.bugrap.domain.entity.ReportStatus;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CustomComponent;
