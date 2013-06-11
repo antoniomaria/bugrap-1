@@ -19,17 +19,26 @@ import java.util.Date;
 @CDIView(ReportsOverviewView.NAME)
 public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOverviewView {
 
+    private final HeaderLayout headerLayout;
+    private final StatusReportLayout statusReportLayout;
+    private final FiltersLayout filtersLayout;
     @Inject
     private ReportsPresenter reportsPresenter;
 
     public ReportsOverviewViewImpl() {
-        addComponent(new HeaderLayout());
+        headerLayout = new HeaderLayout();
+        addComponent(headerLayout);
         addComponent(new ManageButtonsLayout());
 
         VerticalLayout statusAndFiltersLayout = new VerticalLayout();
         statusAndFiltersLayout.addComponent(new Label("<hr/>", ContentMode.HTML));
-        statusAndFiltersLayout.addComponent(new StatusReportLayout());
-        statusAndFiltersLayout.addComponent(new FiltersLayout());
+
+        statusReportLayout = new StatusReportLayout();
+        statusAndFiltersLayout.addComponent(statusReportLayout);
+
+        filtersLayout = new FiltersLayout();
+        statusAndFiltersLayout.addComponent(filtersLayout);
+
         statusAndFiltersLayout.setSpacing(true);
         addComponent(statusAndFiltersLayout);
 
@@ -62,6 +71,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
 
     @Override
     public void showProject(Project project) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        headerLayout.updateProjectName(project.getName());
+        statusReportLayout.updateProjectVersions(project.getProjectVersions());
     }
 }

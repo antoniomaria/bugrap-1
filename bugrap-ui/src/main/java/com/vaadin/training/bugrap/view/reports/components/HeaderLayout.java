@@ -5,10 +5,17 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.themes.Reindeer;
 
 public class HeaderLayout extends HorizontalLayout {
+
+    private final Label projectNameLabel;
+
     public HeaderLayout() {
         setWidth("100%");
 
-        Label projectNameLabel = new Label("Project name that is rather long");
+        projectNameLabel = new Label("Project name that is rather long");
         addComponent(projectNameLabel);
+    }
+
+    public void updateProjectName(String projectName) {
+        projectNameLabel.setValue(projectName);
     }
 }
