@@ -1,8 +1,7 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
-import com.vaadin.data.Container;
 import com.vaadin.data.Property;
-import com.vaadin.training.bugrap.domain.ProjectVersion;
+import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;

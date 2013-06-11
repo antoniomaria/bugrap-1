@@ -1,4 +1,4 @@
-package com.vaadin.training.bugrap.domain;
+package com.vaadin.training.bugrap.domain.entity;
 
 public enum ReportStatus {
     OPEN("Open"), CLOSED("Closed");

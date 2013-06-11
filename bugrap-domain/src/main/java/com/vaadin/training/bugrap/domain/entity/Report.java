@@ -1,4 +1,4 @@
-package com.vaadin.training.bugrap.domain;
+package com.vaadin.training.bugrap.domain.entity;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -6,13 +6,13 @@ import java.util.Date;
 @Entity
 public class Report extends AbstractEntity {
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private ReportType type;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private ReportStatus status;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private ReportResolution resolution;
 
     @Column(columnDefinition = "VARCHAR(5000)")

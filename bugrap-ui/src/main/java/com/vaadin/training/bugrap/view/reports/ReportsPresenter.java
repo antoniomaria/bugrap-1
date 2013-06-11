@@ -1,13 +1,11 @@
 package com.vaadin.training.bugrap.view.reports;
 
-import com.vaadin.training.bugrap.domain.*;
 import com.vaadin.training.bugrap.service.ReportQuery;
 import com.vaadin.training.bugrap.service.ReportService;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
 import com.vaadin.training.bugrap.view.mvp.View;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReportsPresenter extends Presenter {

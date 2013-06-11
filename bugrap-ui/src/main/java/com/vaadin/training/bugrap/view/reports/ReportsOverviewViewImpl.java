@@ -3,11 +3,10 @@ package com.vaadin.training.bugrap.view.reports;
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.training.bugrap.domain.Project;
-import com.vaadin.training.bugrap.domain.Report;
+import com.vaadin.training.bugrap.domain.entity.Project;
+import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.view.reports.components.*;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
 import javax.annotation.PostConstruct;

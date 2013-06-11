@@ -1,9 +1,6 @@
 package com.vaadin.training.bugrap.view.mvp;
 
-import com.vaadin.training.bugrap.domain.ReportResolution;
-import com.vaadin.training.bugrap.domain.ReportStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Presenter {
