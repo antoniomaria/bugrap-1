@@ -17,11 +17,12 @@ import java.util.List;
 @CDIView(ReportsOverviewView.NAME)
 public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOverviewView {
 
+    @Inject
+    private ReportsPresenter reportsPresenter;
+
     private final HeaderLayout headerLayout;
     private final StatusReportLayout statusReportLayout;
     private final FiltersLayout filtersLayout;
-    @Inject
-    private ReportsPresenter reportsPresenter;
     private final ReportsTable reportsTable;
 
     public ReportsOverviewViewImpl() {
@@ -54,6 +55,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     public void init() {
         reportsPresenter.setView(this);
         statusReportLayout.setPresenter(reportsPresenter);
+        filtersLayout.setPresenter(reportsPresenter);
     }
 
     @Override
