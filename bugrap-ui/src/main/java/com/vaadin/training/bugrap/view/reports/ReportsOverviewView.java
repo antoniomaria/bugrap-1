@@ -11,8 +11,8 @@ import com.vaadin.ui.VerticalLayout;
 
 import java.util.Date;
 
-public class ReportsOverviewUI extends VerticalLayout {
-    public ReportsOverviewUI() {
+public class ReportsOverviewView extends VerticalLayout {
+    public ReportsOverviewView() {
         addComponent(new HeaderLayout());
         addComponent(new ManageButtonsLayout());
 
