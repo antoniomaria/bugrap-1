@@ -18,6 +18,7 @@ public class StatusReportLayout extends HorizontalLayout {
         setComponentAlignment(reportsForLabel, Alignment.MIDDLE_CENTER);
 
         projectVersionsSelect = new NativeSelect();
+        projectVersionsSelect.setNullSelectionAllowed(false);
         projectVersionsSelect.addItem("1.2.3-pre12");
         projectVersionsSelect.addItem("1.2.3-pre11");
         projectVersionsSelect.addItem("1.2.3-pre10");
