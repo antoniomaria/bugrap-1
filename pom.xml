@@ -13,4 +13,12 @@
         <module>bugrap-ui</module>
         <module>bugrap-domain</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>14.0-rc2</version>
+        </dependency>
+    </dependencies>
 </project>
