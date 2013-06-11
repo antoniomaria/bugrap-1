@@ -19,10 +19,6 @@ public class StatusReportLayout extends HorizontalLayout {
 
         projectVersionsSelect = new NativeSelect();
         projectVersionsSelect.setNullSelectionAllowed(false);
-        projectVersionsSelect.addItem("1.2.3-pre12");
-        projectVersionsSelect.addItem("1.2.3-pre11");
-        projectVersionsSelect.addItem("1.2.3-pre10");
-        projectVersionsSelect.setValue("1.2.3-pre12");
         addComponent(projectVersionsSelect);
 
         setSpacing(true);

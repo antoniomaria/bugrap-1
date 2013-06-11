@@ -14,9 +14,10 @@ public class ReportsPresenter extends Presenter {
 
     @Override
     public void viewEntered(String params) {
-//        Project project = reportService.findProject();
-        Project project = createDummyProject();
+        Project project = reportService.findProject();
+//        Project project = createDummyProject();
         getView().showProject(project);
+        getView().showReports(reportService.getReports(null));
     }
 
     private Project createDummyProject() {
