@@ -1,9 +1,9 @@
 package com.vaadin.training.bugrap.service;
 
-import com.vaadin.training.bugrap.domain.ProjectVersion;
-import com.vaadin.training.bugrap.domain.ReportResolution;
-import com.vaadin.training.bugrap.domain.ReportStatus;
-import com.vaadin.training.bugrap.domain.User;
+import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
+import com.vaadin.training.bugrap.domain.entity.ReportResolution;
+import com.vaadin.training.bugrap.domain.entity.ReportStatus;
+import com.vaadin.training.bugrap.domain.entity.User;
 
 import java.util.List;
 

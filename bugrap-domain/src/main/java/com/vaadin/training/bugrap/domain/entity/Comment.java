@@ -1,4 +1,4 @@
-package com.vaadin.training.bugrap.domain;
+package com.vaadin.training.bugrap.domain.entity;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +11,7 @@ public class Comment extends AbstractEntity {
 
     private String comment;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private CommentType type;
 
     private String attachmentName;

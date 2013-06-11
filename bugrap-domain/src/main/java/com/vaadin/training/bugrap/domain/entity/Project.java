@@ -1,4 +1,4 @@
-package com.vaadin.training.bugrap.domain;
+package com.vaadin.training.bugrap.domain.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

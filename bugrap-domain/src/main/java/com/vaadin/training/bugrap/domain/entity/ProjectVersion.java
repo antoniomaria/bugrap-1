@@ -1,4 +1,4 @@
-package com.vaadin.training.bugrap.domain;
+package com.vaadin.training.bugrap.domain.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

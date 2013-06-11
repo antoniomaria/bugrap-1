@@ -1,9 +1,11 @@
-package com.vaadin.training.bugrap.domain;
+package com.vaadin.training.bugrap.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "BUGRAP_USER")
 public class User extends AbstractEntity {
 
     @Column(nullable = false, unique = true)

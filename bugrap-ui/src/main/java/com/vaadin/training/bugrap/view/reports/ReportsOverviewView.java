@@ -1,6 +1,6 @@
 package com.vaadin.training.bugrap.view.reports;
 
-import com.vaadin.training.bugrap.domain.Project;
+import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.view.mvp.View;
 
 public interface ReportsOverviewView extends View {

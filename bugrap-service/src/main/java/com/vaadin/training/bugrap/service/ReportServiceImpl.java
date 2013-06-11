@@ -1,7 +1,7 @@
 package com.vaadin.training.bugrap.service;
 
 import com.google.common.collect.Lists;
-import com.vaadin.training.bugrap.domain.*;
+import com.vaadin.training.bugrap.domain.entity.*;
 
 import java.util.Date;
 import java.util.List;

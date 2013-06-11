@@ -3,7 +3,7 @@ package com.vaadin.training.bugrap.view.reports;
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.training.bugrap.domain.Project;
+import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.view.reports.components.FiltersLayout;
 import com.vaadin.training.bugrap.view.reports.components.HeaderLayout;
 import com.vaadin.training.bugrap.view.reports.components.ManageButtonsLayout;
