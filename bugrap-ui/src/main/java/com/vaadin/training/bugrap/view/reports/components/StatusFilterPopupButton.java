@@ -4,6 +4,7 @@ import com.vaadin.data.Property;
 import com.vaadin.training.bugrap.domain.entity.ReportResolution;
 import com.vaadin.training.bugrap.domain.entity.ReportStatus;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
+import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.OptionGroup;
@@ -16,9 +17,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class StatusFilterPopupButton extends CustomComponent {
-    private Presenter presenter;
+    private ReportsPresenter presenter;
 
-    public void setPresenter(Presenter presenter) {
+    public void setPresenter(ReportsPresenter presenter) {
         this.presenter = presenter;
     }
 

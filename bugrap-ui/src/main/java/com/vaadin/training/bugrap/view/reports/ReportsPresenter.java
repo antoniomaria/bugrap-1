@@ -31,7 +31,6 @@ public class ReportsPresenter extends Presenter {
         getView().showReports(reportService.getReports(null));
     }
 
-    @Override
     public void projectVersionChanged(String version) {
         ReportQuery reportQuery = new ReportQuery();
         ProjectVersion projectVersion = new ProjectVersion();
@@ -46,7 +45,6 @@ public class ReportsPresenter extends Presenter {
         getView().showReports(reports);
     }
 
-    @Override
     public void reportsStatusFilterChanged(List<ReportStatus> statuses) {
         ReportQuery reportQuery = new ReportQuery();
         reportQuery.setStatuses(statuses);
@@ -57,7 +55,6 @@ public class ReportsPresenter extends Presenter {
         getView().showReports(reports);
     }
 
-    @Override
     public void reportsCustomFilterChanged(List<ReportStatus> statuses, ArrayList<ReportResolution> reportResolutions) {
         //TODO
     }
