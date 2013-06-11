@@ -1,4 +1,4 @@
-package com.vaadin.training;
+package com.vaadin.training.bugrap;
 
 import com.vaadin.cdi.CDIUI;
 import com.vaadin.server.VaadinRequest;
