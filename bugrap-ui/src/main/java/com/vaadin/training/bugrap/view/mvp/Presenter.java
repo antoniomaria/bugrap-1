@@ -12,4 +12,6 @@ public abstract class Presenter {
     }
 
     public abstract void viewEntered(String params);
+
+    public abstract void projectVersionChanged(String version);
 }

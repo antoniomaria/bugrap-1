@@ -1,5 +1,6 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
+import com.vaadin.training.bugrap.view.mvp.Presenter;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;

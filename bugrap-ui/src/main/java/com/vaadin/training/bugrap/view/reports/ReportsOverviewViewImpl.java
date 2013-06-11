@@ -53,6 +53,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     @PostConstruct
     public void init() {
         reportsPresenter.setView(this);
+        statusReportLayout.setPresenter(reportsPresenter);
     }
 
     @Override

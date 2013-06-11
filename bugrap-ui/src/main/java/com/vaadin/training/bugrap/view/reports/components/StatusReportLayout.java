@@ -1,6 +1,9 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
+import com.vaadin.data.Container;
+import com.vaadin.data.Property;
 import com.vaadin.training.bugrap.domain.ProjectVersion;
+import com.vaadin.training.bugrap.view.mvp.Presenter;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -11,6 +14,11 @@ import java.util.List;
 public class StatusReportLayout extends HorizontalLayout {
 
     private final NativeSelect projectVersionsSelect;
+    private Presenter presenter;
+
+    public void setPresenter(Presenter presenter) {
+        this.presenter = presenter;
+    }
 
     public StatusReportLayout() {
         Label reportsForLabel = new Label("Reports for");
@@ -19,6 +27,14 @@ public class StatusReportLayout extends HorizontalLayout {
 
         projectVersionsSelect = new NativeSelect();
         projectVersionsSelect.setNullSelectionAllowed(false);
+        projectVersionsSelect.setImmediate(true);
+        projectVersionsSelect.addValueChangeListener(new Property.ValueChangeListener() {
+            @Override
+            public void valueChange(Property.ValueChangeEvent event) {
+                String version = (String)event.getProperty().getValue();
+                presenter.projectVersionChanged(version);
+            }
+        });
         addComponent(projectVersionsSelect);
 
         setSpacing(true);
