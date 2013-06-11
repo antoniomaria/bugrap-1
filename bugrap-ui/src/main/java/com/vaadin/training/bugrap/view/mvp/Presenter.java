@@ -1,7 +1,9 @@
 package com.vaadin.training.bugrap.view.mvp;
 
+import com.vaadin.training.bugrap.domain.ReportResolution;
 import com.vaadin.training.bugrap.domain.ReportStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Presenter {
@@ -20,4 +22,6 @@ public abstract class Presenter {
     public abstract void projectVersionChanged(String version);
 
     public abstract void reportsStatusFilterChanged(List<ReportStatus> statuses);
+
+    public abstract void reportsCustomFilterChanged(List<ReportStatus> statuses, ArrayList<ReportResolution> reportResolutions);
 }

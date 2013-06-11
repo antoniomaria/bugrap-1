@@ -1,15 +1,13 @@
 package com.vaadin.training.bugrap.view.reports;
 
-import com.vaadin.training.bugrap.domain.Project;
-import com.vaadin.training.bugrap.domain.ProjectVersion;
-import com.vaadin.training.bugrap.domain.Report;
-import com.vaadin.training.bugrap.domain.ReportStatus;
+import com.vaadin.training.bugrap.domain.*;
 import com.vaadin.training.bugrap.service.ReportQuery;
 import com.vaadin.training.bugrap.service.ReportService;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
 import com.vaadin.training.bugrap.view.mvp.View;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportsPresenter extends Presenter {
@@ -57,6 +55,11 @@ public class ReportsPresenter extends Presenter {
         List<Report> reports = reportService.getReports(reportQuery);
 
         getView().showReports(reports);
+    }
+
+    @Override
+    public void reportsCustomFilterChanged(List<ReportStatus> statuses, ArrayList<ReportResolution> reportResolutions) {
+        //TODO
     }
 
     @Override

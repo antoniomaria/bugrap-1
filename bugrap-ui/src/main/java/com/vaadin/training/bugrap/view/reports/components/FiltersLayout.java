@@ -1,13 +1,13 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
+import com.vaadin.training.bugrap.domain.ReportResolution;
 import com.vaadin.training.bugrap.domain.ReportStatus;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
+import com.vaadin.ui.*;
+import org.vaadin.hene.popupbutton.PopupButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FiltersLayout extends HorizontalLayout {
@@ -44,7 +44,10 @@ public class FiltersLayout extends HorizontalLayout {
                 presenter.reportsStatusFilterChanged(new ArrayList<ReportStatus>());
             }
         }));
-        addComponent(new Button("Custom"));
+
+        StatusFilterPopupButton popupButton = new StatusFilterPopupButton();
+        popupButton.setPresenter(presenter);
+        addComponent(popupButton);
 
         setSpacing(true);
     }
