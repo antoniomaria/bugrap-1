@@ -3,7 +3,6 @@ package com.vaadin.training.bugrap.view.reports.components;
 import com.vaadin.data.Property;
 import com.vaadin.training.bugrap.domain.entity.ReportResolution;
 import com.vaadin.training.bugrap.domain.entity.ReportStatus;
-import com.vaadin.training.bugrap.view.mvp.Presenter;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CustomComponent;
@@ -25,8 +24,10 @@ public class StatusFilterPopupButton extends CustomComponent {
 
     public StatusFilterPopupButton() {
         PopupButton popupButton = new PopupButton("Custom");
+
         VerticalLayout popupButtonLayout = new VerticalLayout();
         popupButtonLayout.setHeight("160px");
+
         final CheckBox openReportsCheckbox = new CheckBox("Open", true);
         openReportsCheckbox.setImmediate(true);
         popupButtonLayout.addComponent(openReportsCheckbox);
