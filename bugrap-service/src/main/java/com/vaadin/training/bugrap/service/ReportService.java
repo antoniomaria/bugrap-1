@@ -1,6 +1,5 @@
 package com.vaadin.training.bugrap.service;
 
-import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
 
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public interface ReportService {
 
-    public Project findProject();
-
     public List<Report> getReports(ReportQuery reportQuery);
+
+    public Report save(Report report);
 }

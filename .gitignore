@@ -3,3 +3,5 @@
 rebel.xml
 target
 *.log
+widgetsets
+gwt-unitCache

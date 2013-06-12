@@ -1,13 +1,13 @@
 package com.vaadin.training.bugrap.service;
 
-import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
-import com.vaadin.training.bugrap.domain.repository.ProjectRepository;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
 import com.vaadin.training.bugrap.domain.repository.ReportRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import java.util.List;
 
@@ -19,20 +19,18 @@ public class ReportServiceImpl implements ReportService {
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-    private ProjectRepository projectRepository;
-
-    @Inject
     ReportRepository reportRepository;
 
-    @Override
-    public Project findProject() {
-        logger.debug("Finding projects");
-        return projectRepository.findAll().get(0);
-    }
 
     @Override
     public List<Report> getReports(ReportQuery reportQuery) {
         logger.debug("Getting reports");
         return reportRepository.findReports(reportQuery);
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public Report save(Report report) {
+        return reportRepository.save(report);
     }
 }
