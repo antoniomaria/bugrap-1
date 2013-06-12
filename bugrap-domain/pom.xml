@@ -10,26 +10,23 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>bugrap-domain</artifactId>
-    <properties>
-        <eclipselink.version>2.5.0</eclipselink.version>
-    </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
-            <version>${eclipselink.version}</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.9.1.0</version>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa-all</artifactId>
+            <version>2.2.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.10</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>

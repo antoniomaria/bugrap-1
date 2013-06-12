@@ -2,6 +2,8 @@ package com.vaadin.training.bugrap.domain.repository;
 
 import com.vaadin.training.bugrap.domain.entity.AbstractEntity;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -18,6 +20,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> {
 
     protected abstract Class<E> getEntityClass();
 
+
     public E find(Long id) {
         return em.find(getEntityClass(), id);
     }
@@ -30,6 +33,8 @@ public abstract class AbstractRepository<E extends AbstractEntity> {
         return em.createQuery(criteriaQuery).getResultList();
     }
 
+
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public E save(E entity) {
         E saved;
         if (entity.isPersistent()) {
@@ -38,6 +43,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> {
             em.persist(entity);
             saved = entity;
         }
+        em.flush();
         return saved;
     }
 }

@@ -10,7 +10,7 @@ abstract public class AbstractEntity {
     private Long id;
 
     @Version
-    private int consistencyVersion = -1;
+    private int consistencyVersion;
 
     public Long getId() {
         return id;
@@ -28,39 +28,7 @@ abstract public class AbstractEntity {
         this.consistencyVersion = consistencyVersion;
     }
 
-    @Transient
     public boolean isPersistent() {
         return id != null;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj.getClass().equals(this.getClass())) {
-
-            if (!isPersistent()) {
-                return super.equals(obj);
-            }
-
-            return this.getId().equals(((AbstractEntity) obj).getId());
-        }
-
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        if (getId() == null) {
-            super.hashCode();
-        }
-
-        return id.hashCode();
     }
 }
