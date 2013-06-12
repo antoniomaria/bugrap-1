@@ -26,8 +26,18 @@ public class FiltersLayout extends HorizontalLayout {
         addComponent(assigneesLabel);
         setComponentAlignment(assigneesLabel, Alignment.MIDDLE_CENTER);
 
-        addComponent(new Button("Only me"));
-        addComponent(new Button("Everyone"));
+        addComponent(new Button("Only me", new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                presenter.reportsCurrentUserFilterSelected();
+            }
+        }));
+        addComponent(new Button("Everyone", new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                presenter.reportsAllUsersFilterSelected();
+            }
+        }));
 
         Label statusLabel = new Label("Status");
         addComponent(statusLabel);
