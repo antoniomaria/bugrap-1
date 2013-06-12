@@ -18,7 +18,7 @@ import java.util.List;
 public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOverviewView {
 
     @Inject
-    private ReportsPresenter reportsPresenter;
+    ReportsPresenter reportsPresenter;
 
     private final HeaderLayout headerLayout;
     private final StatusReportLayout statusReportLayout;

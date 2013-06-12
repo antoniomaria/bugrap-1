@@ -1,0 +1,41 @@
+package com.vaadin.training.bugrap.view.reports;
+
+import com.vaadin.training.bugrap.domain.entity.Project;
+import com.vaadin.training.bugrap.domain.entity.Report;
+import com.vaadin.training.bugrap.domain.repository.ReportQuery;
+import com.vaadin.training.bugrap.service.ReportService;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
+
+/**
+ * @author Marcus Hellberg (marcus@vaadin.com)
+ */
+public class ReportsPresenterViewIntegrationTest {
+
+    private ReportService reportService;
+
+    @Before
+    public void setUp() throws Exception {
+        ReportsPresenter reportsPresenter = new ReportsPresenter();
+        ReportsOverviewViewImpl view = new ReportsOverviewViewImpl();
+        view.reportsPresenter = reportsPresenter;
+        reportsPresenter.setView(view);
+
+        reportService = mock(ReportService.class);
+    }
+
+    @Test
+    public void verifyReportsOnlyFetchedOnce() throws Exception {
+        Project project = new Project();
+        project.addProjectVersion("one");
+        project.addProjectVersion("two");
+        when(reportService.findProject()).thenReturn(project);
+        when(reportService.getReports(any(ReportQuery.class))).thenReturn(new ArrayList<Report>());
+        verifyNoMoreInteractions(reportService);
+    }
+}
