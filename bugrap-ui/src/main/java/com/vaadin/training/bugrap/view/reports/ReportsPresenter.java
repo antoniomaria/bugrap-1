@@ -1,11 +1,13 @@
 package com.vaadin.training.bugrap.view.reports;
 
+import com.google.common.collect.Lists;
 import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
 import com.vaadin.training.bugrap.service.ReportService;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportsPresenter extends Presenter {
@@ -39,7 +41,7 @@ public class ReportsPresenter extends Presenter {
 
     public void reportsStatusFilterChanged(ReportStatus status) {
         query.setStatus(status);
-        query.setResolutions(null);
+        query.setResolutions(new ArrayList<ReportResolution>());
 
         List<Report> reports = reportService.getReports(query);
 
