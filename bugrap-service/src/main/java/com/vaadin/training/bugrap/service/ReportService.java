@@ -11,4 +11,6 @@ import java.util.List;
 public interface ReportService {
 
     public List<Report> getReports(ReportQuery reportQuery);
+
+    public Report save(Report report);
 }
