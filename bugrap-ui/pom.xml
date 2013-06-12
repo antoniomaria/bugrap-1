@@ -55,6 +55,11 @@
             <artifactId>vaadin-client-compiled</artifactId>
             <version>${vaadin.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>popupbutton</artifactId>
+            <version>2.2.0</version>
+        </dependency>
         <!--
 		  Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory).
 		  

@@ -1,11 +1,7 @@
 package com.vaadin.training.bugrap.view.reports;
 
-import com.vaadin.training.bugrap.domain.entity.Project;
-import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
-import com.vaadin.training.bugrap.domain.entity.Report;
-import com.vaadin.training.bugrap.domain.entity.ReportStatus;
+import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
-import com.vaadin.training.bugrap.service.DummyDataService;
 import com.vaadin.training.bugrap.service.ReportService;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
 
@@ -16,12 +12,13 @@ public class ReportsPresenter extends Presenter {
 
     private Project currentProject;
     private ProjectVersion currentVersion;
+    private User currentUser;
+
+    private List<ReportStatus> statuses;
+    private List<ReportResolution> resolutions;
 
     @Inject
     private ReportService reportService;
-
-    @Inject
-    DummyDataService dummyDataService;
 
     @Override
     public void viewEntered(String params) {
@@ -32,11 +29,12 @@ public class ReportsPresenter extends Presenter {
         currentVersion.setVersion("");
         currentVersion.setProject(project);
 
+        currentUser = new User();
+
         getView().showProject(project);
         getView().showReports(reportService.getReports(null));
     }
 
-    @Override
     public void projectVersionChanged(String version) {
         ReportQuery reportQuery = new ReportQuery();
         ProjectVersion projectVersion = new ProjectVersion();
@@ -51,11 +49,26 @@ public class ReportsPresenter extends Presenter {
         getView().showReports(reports);
     }
 
-    @Override
     public void reportsStatusFilterChanged(List<ReportStatus> statuses) {
         ReportQuery reportQuery = new ReportQuery();
         reportQuery.setStatuses(statuses);
         reportQuery.setVersion(currentVersion);
+
+        this.statuses = statuses;
+        this.resolutions = null;
+
+        List<Report> reports = reportService.getReports(reportQuery);
+
+        getView().showReports(reports);
+    }
+
+    public void reportsCustomFilterChanged(List<ReportStatus> statuses, List<ReportResolution> resolutions) {
+        ReportQuery reportQuery = new ReportQuery();
+        reportQuery.setStatuses(statuses);
+        reportQuery.setResolutions(resolutions);
+
+        this.statuses = statuses;
+        this.resolutions = resolutions;
 
         List<Report> reports = reportService.getReports(reportQuery);
 
@@ -65,5 +78,22 @@ public class ReportsPresenter extends Presenter {
     @Override
     public ReportsOverviewView getView() {
         return (ReportsOverviewView) super.getView();
+    }
+
+    public void reportsCurrentUserFilterSelected() {
+        ReportQuery reportQuery = new ReportQuery();
+        reportQuery.setAssignee(currentUser);
+
+        List<Report> reports = reportService.getReports(reportQuery);
+
+        getView().showReports(reports);
+    }
+
+    public void reportsAllUsersFilterSelected() {
+        ReportQuery reportQuery = new ReportQuery();
+
+        List<Report> reports = reportService.getReports(reportQuery);
+
+        getView().showReports(reports);
     }
 }

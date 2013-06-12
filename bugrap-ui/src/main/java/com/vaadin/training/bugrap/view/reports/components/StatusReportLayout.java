@@ -3,6 +3,7 @@ package com.vaadin.training.bugrap.view.reports.components;
 import com.vaadin.data.Property;
 import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
+import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -13,9 +14,9 @@ import java.util.List;
 public class StatusReportLayout extends HorizontalLayout {
 
     private final NativeSelect projectVersionsSelect;
-    private Presenter presenter;
+    private ReportsPresenter presenter;
 
-    public void setPresenter(Presenter presenter) {
+    public void setPresenter(ReportsPresenter presenter) {
         this.presenter = presenter;
     }
 

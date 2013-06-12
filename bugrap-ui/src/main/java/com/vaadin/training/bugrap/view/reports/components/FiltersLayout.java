@@ -2,6 +2,7 @@ package com.vaadin.training.bugrap.view.reports.components;
 
 import com.vaadin.training.bugrap.domain.entity.ReportStatus;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
+import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
@@ -12,10 +13,12 @@ import java.util.List;
 
 public class FiltersLayout extends HorizontalLayout {
 
-    private Presenter presenter;
+    private ReportsPresenter presenter;
+    private final StatusFilterPopupButton popupButton;
 
-    public void setPresenter(Presenter presenter) {
+    public void setPresenter(ReportsPresenter presenter) {
         this.presenter = presenter;
+        popupButton.setPresenter(presenter);
     }
 
     public FiltersLayout() {
@@ -23,8 +26,18 @@ public class FiltersLayout extends HorizontalLayout {
         addComponent(assigneesLabel);
         setComponentAlignment(assigneesLabel, Alignment.MIDDLE_CENTER);
 
-        addComponent(new Button("Only me"));
-        addComponent(new Button("Everyone"));
+        addComponent(new Button("Only me", new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                presenter.reportsCurrentUserFilterSelected();
+            }
+        }));
+        addComponent(new Button("Everyone", new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                presenter.reportsAllUsersFilterSelected();
+            }
+        }));
 
         Label statusLabel = new Label("Status");
         addComponent(statusLabel);
@@ -44,7 +57,10 @@ public class FiltersLayout extends HorizontalLayout {
                 presenter.reportsStatusFilterChanged(new ArrayList<ReportStatus>());
             }
         }));
-        addComponent(new Button("Custom"));
+
+        popupButton = new StatusFilterPopupButton();
+
+        addComponent(popupButton);
 
         setSpacing(true);
     }

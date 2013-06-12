@@ -1,5 +1,6 @@
 package com.vaadin.training.bugrap;
 
+import com.vaadin.annotations.Widgetset;
 import com.vaadin.cdi.CDIUI;
 import com.vaadin.cdi.CDIViewProvider;
 import com.vaadin.navigator.Navigator;
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 /**
  * The Application's "main" class
  */
+@Widgetset("com.vaadin.training.bugrap.BugRapWidgetSet")
 @SuppressWarnings("serial")
 @CDIUI
 public class BugRapUI extends UI {
