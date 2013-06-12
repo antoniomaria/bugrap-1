@@ -27,7 +27,7 @@ public class StatusFilterPopupButton extends CustomComponent {
         PopupButton popupButton = new PopupButton("Custom");
         VerticalLayout popupButtonLayout = new VerticalLayout();
         popupButtonLayout.setHeight("160px");
-        CheckBox openReportsCheckbox = new CheckBox("Open", true);
+        final CheckBox openReportsCheckbox = new CheckBox("Open", true);
         openReportsCheckbox.setImmediate(true);
         popupButtonLayout.addComponent(openReportsCheckbox);
         popupButtonLayout.setExpandRatio(openReportsCheckbox, 1.0f);
@@ -39,28 +39,32 @@ public class StatusFilterPopupButton extends CustomComponent {
             optionGroup.setItemCaption(reportResolution, reportResolution.toString());
         }
         optionGroup.setValue(Arrays.asList(ReportResolution.values()));
+        optionGroup.setImmediate(true);
         popupButtonLayout.addComponent(optionGroup);
 
         popupButton.setContent(popupButtonLayout);
 
         setCompositionRoot(popupButton);
 
-        openReportsCheckbox.addValueChangeListener(new Property.ValueChangeListener() {
+        Property.ValueChangeListener listener = new Property.ValueChangeListener() {
             @Override
             public void valueChange(Property.ValueChangeEvent event) {
                 List<ReportStatus> statuses = new ArrayList<ReportStatus>();
-                if(event.getProperty().getValue().equals(Boolean.TRUE)) {
+                if (openReportsCheckbox.getValue().equals(Boolean.TRUE)) {
                     statuses.add(ReportStatus.OPEN);
                 }
 
                 Collection<ReportResolution> resolutions = (Collection<ReportResolution>) optionGroup.getValue();
 
-                if(resolutions.size() > 0) {
+                if (resolutions.size() > 0) {
                     statuses.add(ReportStatus.CLOSED);
                 }
 
                 presenter.reportsCustomFilterChanged(statuses, new ArrayList<ReportResolution>(resolutions));
             }
-        });
+        };
+
+        openReportsCheckbox.addValueChangeListener(listener);
+        optionGroup.addValueChangeListener(listener);
     }
 }

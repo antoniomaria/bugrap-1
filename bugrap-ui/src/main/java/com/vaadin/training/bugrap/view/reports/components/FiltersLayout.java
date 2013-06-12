@@ -14,9 +14,11 @@ import java.util.List;
 public class FiltersLayout extends HorizontalLayout {
 
     private ReportsPresenter presenter;
+    private final StatusFilterPopupButton popupButton;
 
     public void setPresenter(ReportsPresenter presenter) {
         this.presenter = presenter;
+        popupButton.setPresenter(presenter);
     }
 
     public FiltersLayout() {
@@ -46,8 +48,8 @@ public class FiltersLayout extends HorizontalLayout {
             }
         }));
 
-        StatusFilterPopupButton popupButton = new StatusFilterPopupButton();
-        popupButton.setPresenter(presenter);
+        popupButton = new StatusFilterPopupButton();
+
         addComponent(popupButton);
 
         setSpacing(true);

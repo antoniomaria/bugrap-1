@@ -55,8 +55,14 @@ public class ReportsPresenter extends Presenter {
         getView().showReports(reports);
     }
 
-    public void reportsCustomFilterChanged(List<ReportStatus> statuses, ArrayList<ReportResolution> reportResolutions) {
-        //TODO
+    public void reportsCustomFilterChanged(List<ReportStatus> statuses, List<ReportResolution> resolutions) {
+        ReportQuery reportQuery = new ReportQuery();
+        reportQuery.setStatuses(statuses);
+        reportQuery.setResolutions(resolutions);
+
+        List<Report> reports = reportService.getReports(reportQuery);
+
+        getView().showReports(reports);
     }
 
     @Override
