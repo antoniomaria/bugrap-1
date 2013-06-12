@@ -2,6 +2,7 @@ package com.vaadin.training.bugrap.view.reports.components;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.ItemClickEvent;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.Table;
@@ -21,10 +22,10 @@ public class ReportsTable extends Table {
         setImmediate(true);
         setSizeFull();
 
-        addValueChangeListener(new ValueChangeListener() {
+        addItemClickListener(new ItemClickEvent.ItemClickListener() {
             @Override
-            public void valueChange(Property.ValueChangeEvent event) {
-                presenter.reportSelected((Report)event.getProperty().getValue());
+            public void itemClick(ItemClickEvent event) {
+                presenter.reportSelected((Report)event.getItemId());
             }
         });
     }

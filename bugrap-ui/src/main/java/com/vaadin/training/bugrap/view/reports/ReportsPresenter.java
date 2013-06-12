@@ -14,7 +14,7 @@ public class ReportsPresenter extends Presenter {
     private ProjectVersion currentVersion;
     private User currentUser;
 
-    private List<ReportStatus> statuses;
+    private ReportStatus status;
     private List<ReportResolution> resolutions;
 
     @Inject
@@ -49,12 +49,12 @@ public class ReportsPresenter extends Presenter {
         getView().showReports(reports);
     }
 
-    public void reportsStatusFilterChanged(List<ReportStatus> statuses) {
+    public void reportsStatusFilterChanged(ReportStatus status) {
         ReportQuery reportQuery = new ReportQuery();
-        reportQuery.setStatuses(statuses);
+        reportQuery.setStatus(status);
         reportQuery.setVersion(currentVersion);
 
-        this.statuses = statuses;
+        this.status = status;
         this.resolutions = null;
 
         List<Report> reports = reportService.getReports(reportQuery);
@@ -62,12 +62,12 @@ public class ReportsPresenter extends Presenter {
         getView().showReports(reports);
     }
 
-    public void reportsCustomFilterChanged(List<ReportStatus> statuses, List<ReportResolution> resolutions) {
+    public void reportsCustomFilterChanged(ReportStatus status, List<ReportResolution> resolutions) {
         ReportQuery reportQuery = new ReportQuery();
-        reportQuery.setStatuses(statuses);
+        reportQuery.setStatus(status);
         reportQuery.setResolutions(resolutions);
 
-        this.statuses = statuses;
+        this.status = status;
         this.resolutions = resolutions;
 
         List<Report> reports = reportService.getReports(reportQuery);
@@ -82,6 +82,8 @@ public class ReportsPresenter extends Presenter {
 
     public void reportsCurrentUserFilterSelected() {
         ReportQuery reportQuery = new ReportQuery();
+        reportQuery.setStatus(status);
+        reportQuery.setResolutions(resolutions);
         reportQuery.setAssignee(currentUser);
 
         List<Report> reports = reportService.getReports(reportQuery);
@@ -91,6 +93,8 @@ public class ReportsPresenter extends Presenter {
 
     public void reportsAllUsersFilterSelected() {
         ReportQuery reportQuery = new ReportQuery();
+        reportQuery.setStatus(status);
+        reportQuery.setResolutions(resolutions);
 
         List<Report> reports = reportService.getReports(reportQuery);
 

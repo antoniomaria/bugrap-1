@@ -46,15 +46,13 @@ public class FiltersLayout extends HorizontalLayout {
         addComponent(new Button("Open", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                List<ReportStatus> statuses = new ArrayList<ReportStatus>();
-                statuses.add(ReportStatus.OPEN);
-                presenter.reportsStatusFilterChanged(statuses);
+                presenter.reportsStatusFilterChanged(ReportStatus.OPEN);
             }
         }));
         addComponent(new Button("All kinds", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                presenter.reportsStatusFilterChanged(new ArrayList<ReportStatus>());
+                presenter.reportsStatusFilterChanged(null);
             }
         }));
 

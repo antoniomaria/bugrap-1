@@ -50,18 +50,11 @@ public class StatusFilterPopupButton extends CustomComponent {
         Property.ValueChangeListener listener = new Property.ValueChangeListener() {
             @Override
             public void valueChange(Property.ValueChangeEvent event) {
-                List<ReportStatus> statuses = new ArrayList<ReportStatus>();
-                if (openReportsCheckbox.getValue().equals(Boolean.TRUE)) {
-                    statuses.add(ReportStatus.OPEN);
-                }
+                ReportStatus status = openReportsCheckbox.getValue() ? ReportStatus.OPEN : ReportStatus.CLOSED;
 
                 Collection<ReportResolution> resolutions = (Collection<ReportResolution>) optionGroup.getValue();
 
-                if (resolutions.size() > 0) {
-                    statuses.add(ReportStatus.CLOSED);
-                }
-
-                presenter.reportsCustomFilterChanged(statuses, new ArrayList<ReportResolution>(resolutions));
+                presenter.reportsCustomFilterChanged(status, new ArrayList<ReportResolution>(resolutions));
             }
         };
 

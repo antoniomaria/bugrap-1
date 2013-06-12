@@ -2,6 +2,7 @@ package com.vaadin.training.bugrap.view.reports;
 
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
@@ -56,8 +57,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         reportEditLayout = new ReportEditLayout();
         reportsPanel.setSecondComponent(reportEditLayout);
 
-        reportsPanel.setSplitPosition(100, Unit.PERCENTAGE);
-        reportsPanel.setLocked(true);
+        hideReportEditPanel();
 
         setSpacing(true);
     }
@@ -84,6 +84,8 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     @Override
     public void showReports(List<Report> reports) {
         reportsTable.showReports(reports);
+
+        hideReportEditPanel();
     }
 
     @Override
@@ -92,5 +94,10 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
 
         reportsPanel.setSplitPosition(50, Unit.PERCENTAGE);
         reportsPanel.setLocked(false);
+    }
+
+    private void hideReportEditPanel() {
+        reportsPanel.setSplitPosition(100, Unit.PERCENTAGE);
+        reportsPanel.setLocked(true);
     }
 }
