@@ -7,6 +7,7 @@ import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.view.reports.components.*;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
@@ -84,8 +85,6 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     @Override
     public void showReports(List<Report> reports) {
         reportsTable.showReports(reports);
-
-        hideReportEditPanel();
     }
 
     @Override
@@ -96,11 +95,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         reportsPanel.setLocked(false);
     }
 
-    public void updateReports() {
-        reportsTable.refreshRowCache();
-    }
-
-    private void hideReportEditPanel() {
+    public void hideReportEditPanel() {
         reportsPanel.setSplitPosition(100, Unit.PERCENTAGE);
         reportsPanel.setLocked(true);
     }

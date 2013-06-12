@@ -33,6 +33,7 @@ public class ReportsPresenter extends Presenter {
 
         getView().showProject(project);
         getView().showReports(reportService.getReports(new ReportQuery()));
+        getView().hideReportEditPanel();
     }
 
     public void projectVersionChanged(ProjectVersion version) {
@@ -41,6 +42,7 @@ public class ReportsPresenter extends Presenter {
         List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
+        getView().hideReportEditPanel();
     }
 
     public void reportsStatusFilterChanged(ReportStatus status) {
@@ -50,6 +52,7 @@ public class ReportsPresenter extends Presenter {
         List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
+        getView().hideReportEditPanel();
     }
 
     public void reportsCustomFilterChanged(ReportStatus status, List<ReportResolution> resolutions) {
@@ -59,6 +62,7 @@ public class ReportsPresenter extends Presenter {
         List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
+        getView().hideReportEditPanel();
     }
 
     @Override
@@ -72,6 +76,7 @@ public class ReportsPresenter extends Presenter {
         List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
+        getView().hideReportEditPanel();
     }
 
     public void reportsAllUsersFilterSelected() {
@@ -80,6 +85,7 @@ public class ReportsPresenter extends Presenter {
         List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
+        getView().hideReportEditPanel();
     }
 
     public void reportSelected(Report report) {
@@ -91,6 +97,8 @@ public class ReportsPresenter extends Presenter {
     public void reportUpdated() {
         reportService.save(currentReport);
 
-        getView().updateReports();
+        List<Report> reports = reportService.getReports(query);
+
+        getView().showReports(reports);
     }
 }

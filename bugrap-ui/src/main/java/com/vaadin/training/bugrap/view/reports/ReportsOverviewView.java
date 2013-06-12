@@ -15,5 +15,5 @@ public interface ReportsOverviewView extends View {
 
     void showSelectedReport(Report report);
 
-    void updateReports();
+    void hideReportEditPanel();
 }
