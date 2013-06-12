@@ -11,6 +11,13 @@
 
     <artifactId>bugrap-domain</artifactId>
 
+    <repositories>
+        <repository>
+            <id>oss.sonatype.org</id>
+            <name>OSS Sonatype Staging</name>
+            <url>https://oss.sonatype.org/content/groups/staging</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -32,6 +39,13 @@
             <version>1.8.0.10</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -39,36 +53,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.12</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.openjpa</groupId>
-                <artifactId>openjpa-maven-plugin</artifactId>
-                <version>2.2.0</version>
-                <configuration>
-                    <includes>**/entity/*.class</includes>
-                    <addDefaultConstructor>true</addDefaultConstructor>
-                    <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>enhancer</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.openjpa</groupId>
-                        <artifactId>openjpa</artifactId>
-                        <!-- set the version to be the same as the level in your runtime -->
-                        <version>2.2.1</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
-
     </build>
-
-
 </project>
