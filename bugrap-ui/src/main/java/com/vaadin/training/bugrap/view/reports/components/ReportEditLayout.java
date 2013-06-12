@@ -18,8 +18,7 @@ public class ReportEditLayout extends VerticalLayout {
     private final Label reportSummaryLabel;
 
     public ReportEditLayout() {
-        setWidth("100%");
-        setHeight("600px");
+        setSizeFull();
 
         reportSummaryLabel = new Label();
         addComponent(reportSummaryLabel);

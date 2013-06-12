@@ -25,6 +25,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     private final FiltersLayout filtersLayout;
     private final ReportsTable reportsTable;
     private final ReportEditLayout reportEditLayout;
+    private final VerticalSplitPanel reportsPanel;
 
     public ReportsOverviewViewImpl() {
         setSizeFull();
@@ -45,7 +46,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         statusAndFiltersLayout.setSpacing(true);
         addComponent(statusAndFiltersLayout);
 
-        VerticalSplitPanel reportsPanel = new VerticalSplitPanel();
+        reportsPanel = new VerticalSplitPanel();
         addComponent(reportsPanel);
         setExpandRatio(reportsPanel, 1.0f);
 
@@ -54,6 +55,9 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
 
         reportEditLayout = new ReportEditLayout();
         reportsPanel.setSecondComponent(reportEditLayout);
+
+        reportsPanel.setSplitPosition(100, Unit.PERCENTAGE);
+        reportsPanel.setLocked(true);
 
         setSpacing(true);
     }
@@ -85,5 +89,8 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     @Override
     public void showSelectedReport(Report report) {
         reportEditLayout.showReport(report);
+
+        reportsPanel.setSplitPosition(50, Unit.PERCENTAGE);
+        reportsPanel.setLocked(false);
     }
 }
