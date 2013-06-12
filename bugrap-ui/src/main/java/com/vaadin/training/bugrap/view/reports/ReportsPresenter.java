@@ -2,6 +2,7 @@ package com.vaadin.training.bugrap.view.reports;
 
 import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
+import com.vaadin.training.bugrap.service.ProjectService;
 import com.vaadin.training.bugrap.service.ReportService;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
 
@@ -15,13 +16,16 @@ public class ReportsPresenter extends Presenter {
     private ReportQuery query = new ReportQuery();
 
     @Inject
-    private ReportService reportService;
+    ReportService reportService;
+
+    @Inject
+    ProjectService projectService;
 
     private Report currentReport;
 
     @Override
     public void viewEntered(String params) {
-        Project project = reportService.findProject();
+        Project project = projectService.findProject();
 
         currentUser = new User();
 
