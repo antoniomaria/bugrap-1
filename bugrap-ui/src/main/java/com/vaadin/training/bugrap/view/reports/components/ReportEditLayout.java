@@ -29,8 +29,12 @@ public class ReportEditLayout extends VerticalLayout {
 
         priorityCombobox = new ComboBox("Priority");
         reportFormLayout.addComponent(priorityCombobox);
+        priorityCombobox.setTextInputAllowed(false);
+        priorityCombobox.setNullSelectionAllowed(false);
 
         typeCombobox = new ComboBox("Type");
+        typeCombobox.setTextInputAllowed(false);
+        typeCombobox.setNullSelectionAllowed(false);
         for (ReportType reportType : ReportType.values()) {
             typeCombobox.addItem(reportType);
             typeCombobox.setItemCaption(reportType, reportType.toString());
@@ -38,6 +42,8 @@ public class ReportEditLayout extends VerticalLayout {
         reportFormLayout.addComponent(typeCombobox);
 
         statusCombobox = new ComboBox("Status");
+        statusCombobox.setTextInputAllowed(false);
+        statusCombobox.setNullSelectionAllowed(false);
         for (ReportStatus reportStatus : ReportStatus.values()) {
             statusCombobox.addItem(reportStatus);
             statusCombobox.setItemCaption(reportStatus, reportStatus.toString());
@@ -45,9 +51,13 @@ public class ReportEditLayout extends VerticalLayout {
         reportFormLayout.addComponent(statusCombobox);
 
         assignedCombobox = new ComboBox("Assigned to");
+        assignedCombobox.setTextInputAllowed(false);
+        assignedCombobox.setNullSelectionAllowed(false);
         reportFormLayout.addComponent(assignedCombobox);
 
         versionCombobox = new ComboBox("Version");
+        versionCombobox.setTextInputAllowed(false);
+        versionCombobox.setNullSelectionAllowed(false);
         reportFormLayout.addComponent(versionCombobox);
 
         Button updateButton = new Button("Update", new Button.ClickListener() {
