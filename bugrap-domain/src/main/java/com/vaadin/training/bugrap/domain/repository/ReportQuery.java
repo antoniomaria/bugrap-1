@@ -1,5 +1,6 @@
 package com.vaadin.training.bugrap.domain.repository;
 
+import com.google.common.collect.Lists;
 import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
 import com.vaadin.training.bugrap.domain.entity.ReportResolution;
 import com.vaadin.training.bugrap.domain.entity.ReportStatus;
@@ -11,7 +12,7 @@ public class ReportQuery {
     private User assignee;
     private ProjectVersion version;
     private ReportStatus status;
-    private List<ReportResolution> resolutions;
+    private List<ReportResolution> resolutions = Lists.newLinkedList();
 
 
     public User getAssignee() {

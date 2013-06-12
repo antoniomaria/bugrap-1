@@ -1,6 +1,7 @@
 package com.vaadin.training.bugrap.domain.repository;
 
 import com.vaadin.training.bugrap.domain.entity.Project;
+import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,6 +51,15 @@ public class ProjectRepositoryTest {
         assertEquals(saved, found);
     }
 
+    @Test
+    public void testProjectVersionCascade() {
+        Project project = new Project();
+        ProjectVersion version = project.addProjectVersion("1.0");
+
+        projectRepository.save(project);
+
+        assertNotNull(version.getId());
+    }
 
     @After
     public void tearDown() {

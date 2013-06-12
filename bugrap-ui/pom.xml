@@ -9,7 +9,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>bugrap-ui</artifactId>
     <packaging>war</packaging>
-    <name>Vaadin Web Application</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
