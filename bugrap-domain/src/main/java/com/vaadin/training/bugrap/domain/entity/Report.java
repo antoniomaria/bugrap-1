@@ -5,6 +5,7 @@ import java.util.Date;
 
 @Entity
 public class Report extends AbstractEntity {
+    public static final String FIND_BY_CRITERIA = "report.findByCriteria";
 
     @Enumerated(EnumType.STRING)
     private ReportType type;

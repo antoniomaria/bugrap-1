@@ -26,7 +26,7 @@ public class ReportsPresenter extends Presenter {
         currentUser = new User();
 
         getView().showProject(project);
-        getView().showReports(reportService.getReports(null));
+        getView().showReports(reportService.getReports(new ReportQuery()));
     }
 
     public void projectVersionChanged(ProjectVersion version) {
