@@ -2,7 +2,6 @@ package com.vaadin.training.bugrap.view.reports;
 
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
@@ -68,6 +67,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         statusReportLayout.setPresenter(reportsPresenter);
         filtersLayout.setPresenter(reportsPresenter);
         reportsTable.setPresenter(reportsPresenter);
+        reportEditLayout.setPresenter(reportsPresenter);
     }
 
     @Override
@@ -94,6 +94,10 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
 
         reportsPanel.setSplitPosition(50, Unit.PERCENTAGE);
         reportsPanel.setLocked(false);
+    }
+
+    public void updateReports() {
+        reportsTable.refreshRowCache();
     }
 
     private void hideReportEditPanel() {

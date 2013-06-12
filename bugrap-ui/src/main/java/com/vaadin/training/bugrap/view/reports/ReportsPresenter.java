@@ -7,6 +7,7 @@ import com.vaadin.training.bugrap.view.mvp.Presenter;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ReportsPresenter extends Presenter {
 
@@ -19,6 +20,8 @@ public class ReportsPresenter extends Presenter {
 
     @Inject
     private ReportService reportService;
+
+    private Report currentReport;
 
     @Override
     public void viewEntered(String params) {
@@ -102,6 +105,14 @@ public class ReportsPresenter extends Presenter {
     }
 
     public void reportSelected(Report report) {
+        currentReport = report;
+
         getView().showSelectedReport(report);
+    }
+
+    public void reportUpdated() {
+        //TODO: save currentReport
+
+        getView().updateReports();
     }
 }

@@ -3,9 +3,12 @@ package com.vaadin.training.bugrap.view.reports.components;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.training.bugrap.domain.entity.*;
+import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.*;
 
 public class ReportEditLayout extends VerticalLayout {
+
+    private ReportsPresenter presenter;
 
     private FieldGroup fieldGroup;
 
@@ -16,6 +19,12 @@ public class ReportEditLayout extends VerticalLayout {
     private final ComboBox versionCombobox;
     private final TextArea descriptionTextArea;
     private final Label reportSummaryLabel;
+
+    private Report currentReport;
+
+    public void setPresenter(ReportsPresenter presenter) {
+        this.presenter = presenter;
+    }
 
     public ReportEditLayout() {
         setSizeFull();
@@ -65,6 +74,8 @@ public class ReportEditLayout extends VerticalLayout {
             public void buttonClick(Button.ClickEvent event) {
                 try {
                     fieldGroup.commit();
+
+                    presenter.reportUpdated();
                 } catch (FieldGroup.CommitException e) {
                     Notification.show("Can't save the report", Notification.Type.ERROR_MESSAGE);
                 }
@@ -94,12 +105,15 @@ public class ReportEditLayout extends VerticalLayout {
     }
 
     public void showReport(Report report) {
+        currentReport = report;
+
         fieldGroup = new FieldGroup(new BeanItem<Report>(report));
         fieldGroup.bind(priorityCombobox, "priority");
         fieldGroup.bind(typeCombobox, "type");
         fieldGroup.bind(statusCombobox, "status");
         fieldGroup.bind(assignedCombobox, "assigned");
         fieldGroup.bind(versionCombobox, "projectVersion");
+        fieldGroup.bind(descriptionTextArea, "description");
 
         Project project = report.getProjectVersion().getProject();
         for (ProjectVersion projectVersion : project.getProjectVersions()) {

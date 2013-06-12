@@ -14,4 +14,6 @@ public interface ReportsOverviewView extends View {
     void showReports(List<Report> reports);
 
     void showSelectedReport(Report report);
+
+    void updateReports();
 }
