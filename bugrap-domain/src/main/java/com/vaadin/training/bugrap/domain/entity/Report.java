@@ -15,10 +15,10 @@ public class Report extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ReportResolution resolution;
 
-    @Column(columnDefinition = "VARCHAR(5000)")
+    @Column(length = 5000)
     private String summary;
 
-    @Column(columnDefinition = "VARCHAR(5000)")
+    @Column(length = 5000)
     private String description;
 
     @ManyToOne
@@ -123,7 +123,6 @@ public class Report extends AbstractEntity {
         this.author = author;
     }
 
-    @Transient
     public Object getRealStatus() {
         if (status == ReportStatus.OPEN) {
             return status;
@@ -132,7 +131,6 @@ public class Report extends AbstractEntity {
         }
     }
 
-    @Transient
     public void setRealStatus(Object o) {
 
         if (o instanceof ReportStatus) {
@@ -144,7 +142,6 @@ public class Report extends AbstractEntity {
         }
     }
 
-    @Transient
     public static ReportResolution getReportResolution(Object x) {
         if (x.equals("Needs more information")) {
             return ReportResolution.NEEDMOREINFO;

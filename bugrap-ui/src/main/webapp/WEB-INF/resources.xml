@@ -1,0 +1,4 @@
+<Resource id="bugrap" type="DataSource">
+    JdbcDriver = org.hsqldb.jdbcDriver
+    JdbcUrl = jdbc:hsqldb:mem:bugrap
+</Resource>

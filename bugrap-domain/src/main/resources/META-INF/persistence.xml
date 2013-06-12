@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-    <persistence-unit name="h2" transaction-type="RESOURCE_LOCAL">
-        <description>Persistence using a built-in memory-only H2 (Hyperion) database</description>
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        <validation-mode>AUTO</validation-mode>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="bugrap">
+        <jta-data-source>bugrap</jta-data-source>
+        <class>com.vaadin.training.bugrap.domain.entity.AbstractEntity</class>
+        <class>com.vaadin.training.bugrap.domain.entity.Comment</class>
+        <class>com.vaadin.training.bugrap.domain.entity.Project</class>
+        <class>com.vaadin.training.bugrap.domain.entity.ProjectVersion</class>
+        <class>com.vaadin.training.bugrap.domain.entity.Report</class>
+        <class>com.vaadin.training.bugrap.domain.entity.User</class>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:bugrap;DB_CLOSE_DELAY=-1"/>
+            <property name="openjpa.jdbc.SynchronizeMappings"
+                      value="buildSchema(foreignKeys=true,schemaAction='dropDB,add')"/>
         </properties>
     </persistence-unit>
 </persistence>

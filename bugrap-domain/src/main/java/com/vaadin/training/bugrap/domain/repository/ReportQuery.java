@@ -1,4 +1,4 @@
-package com.vaadin.training.bugrap.service;
+package com.vaadin.training.bugrap.domain.repository;
 
 import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
 import com.vaadin.training.bugrap.domain.entity.ReportResolution;
