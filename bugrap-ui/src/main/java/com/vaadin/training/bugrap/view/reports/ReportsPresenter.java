@@ -7,16 +7,12 @@ import com.vaadin.training.bugrap.view.mvp.Presenter;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class ReportsPresenter extends Presenter {
 
-    private Project currentProject;
-    private ProjectVersion currentVersion;
     private User currentUser;
 
-    private ReportStatus status;
-    private List<ReportResolution> resolutions;
+    private ReportQuery query = new ReportQuery();
 
     @Inject
     private ReportService reportService;
@@ -27,53 +23,34 @@ public class ReportsPresenter extends Presenter {
     public void viewEntered(String params) {
         Project project = reportService.findProject();
 
-        currentProject = project;
-        currentVersion = new ProjectVersion();
-        currentVersion.setVersion("");
-        currentVersion.setProject(project);
-
         currentUser = new User();
 
         getView().showProject(project);
         getView().showReports(reportService.getReports(null));
     }
 
-    public void projectVersionChanged(String version) {
-        ReportQuery reportQuery = new ReportQuery();
-        ProjectVersion projectVersion = new ProjectVersion();
-        projectVersion.setProject(currentProject);
-        projectVersion.setVersion(version);
-        reportQuery.setVersion(projectVersion);
+    public void projectVersionChanged(ProjectVersion version) {
+        query.setVersion(version);
 
-        currentVersion = projectVersion;
-
-        List<Report> reports = reportService.getReports(reportQuery);
+        List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
     }
 
     public void reportsStatusFilterChanged(ReportStatus status) {
-        ReportQuery reportQuery = new ReportQuery();
-        reportQuery.setStatus(status);
-        reportQuery.setVersion(currentVersion);
+        query.setStatus(status);
+        query.setResolutions(null);
 
-        this.status = status;
-        this.resolutions = null;
-
-        List<Report> reports = reportService.getReports(reportQuery);
+        List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
     }
 
     public void reportsCustomFilterChanged(ReportStatus status, List<ReportResolution> resolutions) {
-        ReportQuery reportQuery = new ReportQuery();
-        reportQuery.setStatus(status);
-        reportQuery.setResolutions(resolutions);
+        query.setStatus(status);
+        query.setResolutions(resolutions);
 
-        this.status = status;
-        this.resolutions = resolutions;
-
-        List<Report> reports = reportService.getReports(reportQuery);
+        List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
     }
@@ -84,22 +61,17 @@ public class ReportsPresenter extends Presenter {
     }
 
     public void reportsCurrentUserFilterSelected() {
-        ReportQuery reportQuery = new ReportQuery();
-        reportQuery.setStatus(status);
-        reportQuery.setResolutions(resolutions);
-        reportQuery.setAssignee(currentUser);
+        query.setAssignee(currentUser);
 
-        List<Report> reports = reportService.getReports(reportQuery);
+        List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
     }
 
     public void reportsAllUsersFilterSelected() {
-        ReportQuery reportQuery = new ReportQuery();
-        reportQuery.setStatus(status);
-        reportQuery.setResolutions(resolutions);
+        query.setAssignee(null);
 
-        List<Report> reports = reportService.getReports(reportQuery);
+        List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
     }

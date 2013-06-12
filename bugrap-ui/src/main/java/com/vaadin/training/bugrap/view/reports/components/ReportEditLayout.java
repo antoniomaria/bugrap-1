@@ -20,7 +20,6 @@ public class ReportEditLayout extends VerticalLayout {
     private final TextArea descriptionTextArea;
     private final Label reportSummaryLabel;
 
-    private Report currentReport;
     private final Button updateButton;
 
     public void setPresenter(ReportsPresenter presenter) {
@@ -101,8 +100,6 @@ public class ReportEditLayout extends VerticalLayout {
     }
 
     public void showReport(Report report) {
-        currentReport = report;
-
         fieldGroup = new FieldGroup(new BeanItem<Report>(report));
         fieldGroup.bind(priorityCombobox, "priority");
         fieldGroup.bind(typeCombobox, "type");

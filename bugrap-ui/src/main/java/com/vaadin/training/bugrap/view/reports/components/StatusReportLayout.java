@@ -2,7 +2,6 @@ package com.vaadin.training.bugrap.view.reports.components;
 
 import com.vaadin.data.Property;
 import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
-import com.vaadin.training.bugrap.view.mvp.Presenter;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
@@ -14,7 +13,9 @@ import java.util.List;
 public class StatusReportLayout extends HorizontalLayout {
 
     private final NativeSelect projectVersionsSelect;
+    private final Property.ValueChangeListener valueChangeListener;
     private ReportsPresenter presenter;
+    private ProjectVersion allVersions;
 
     public void setPresenter(ReportsPresenter presenter) {
         this.presenter = presenter;
@@ -28,33 +29,44 @@ public class StatusReportLayout extends HorizontalLayout {
         projectVersionsSelect = new NativeSelect();
         projectVersionsSelect.setNullSelectionAllowed(false);
         projectVersionsSelect.setImmediate(true);
-        projectVersionsSelect.addValueChangeListener(new Property.ValueChangeListener() {
+        valueChangeListener = new Property.ValueChangeListener() {
             @Override
             public void valueChange(Property.ValueChangeEvent event) {
-                String version = (String)event.getProperty().getValue();
+                ProjectVersion version = (ProjectVersion) event.getProperty().getValue();
+
+                if (allVersions.equals(version)) {
+                    version = null;
+                }
                 presenter.projectVersionChanged(version);
             }
-        });
+        };
+
         addComponent(projectVersionsSelect);
 
         setSpacing(true);
     }
 
     public void updateProjectVersions(List<ProjectVersion> versions) {
+        projectVersionsSelect.removeValueChangeListener(valueChangeListener);
+
         projectVersionsSelect.removeAllItems();
 
         if(versions.size() > 1) {
-            projectVersionsSelect.addItem("");
-            projectVersionsSelect.setItemCaption("", "All versions");
-            projectVersionsSelect.setValue("");
+            allVersions = new ProjectVersion();
+            projectVersionsSelect.addItem(allVersions);
+            projectVersionsSelect.setItemCaption(allVersions, "All versions");
+            projectVersionsSelect.setValue(allVersions);
         }
 
         for (ProjectVersion version : versions) {
-            projectVersionsSelect.addItem(version.getVersion());
+            projectVersionsSelect.addItem(version);
+            projectVersionsSelect.setItemCaption(version, version.getVersion());
         }
 
         if(versions.size() == 1) {
-            projectVersionsSelect.setValue(versions.iterator().next().getVersion());
+            projectVersionsSelect.setValue(versions.iterator().next());
         }
+
+        projectVersionsSelect.addValueChangeListener(valueChangeListener);
     }
 }
