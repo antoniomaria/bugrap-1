@@ -5,11 +5,13 @@ import com.vaadin.training.bugrap.domain.repository.ProjectRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
+@Stateless
 public class ProjectServiceImpl implements ProjectService {
     Logger logger = LoggerFactory.getLogger(getClass());
 

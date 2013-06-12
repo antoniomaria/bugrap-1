@@ -1,9 +1,6 @@
 package com.vaadin.training.bugrap.domain.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 
 @Entity
@@ -14,10 +11,10 @@ public class Project extends AbstractEntity {
     @ManyToOne
     private User manager;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<User> participants;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "project")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "project", fetch = FetchType.EAGER)
     private List<ProjectVersion> projectVersions;
 
     public Project() {

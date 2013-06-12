@@ -6,6 +6,7 @@ import com.vaadin.training.bugrap.domain.repository.ReportRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
+@Stateless
 public class ReportServiceImpl implements ReportService {
 
     Logger logger = LoggerFactory.getLogger(getClass());
