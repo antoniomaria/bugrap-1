@@ -89,7 +89,7 @@ public class ReportsPresenter extends Presenter {
     }
 
     public void reportUpdated() {
-        //TODO: save currentReport
+        reportService.save(currentReport);
 
         getView().updateReports();
     }
