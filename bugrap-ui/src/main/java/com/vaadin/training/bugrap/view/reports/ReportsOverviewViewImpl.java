@@ -47,6 +47,8 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         addComponent(reportsTable);
         setExpandRatio(reportsTable, 1.0f);
 
+        addComponent(new ReportEditLayout());
+
         setSpacing(true);
     }
 
