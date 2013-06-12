@@ -60,7 +60,7 @@ public class ReportRepository extends AbstractRepository<Report> {
             query.setParameter("versionId", version.getId());
         }
         if (status != null) {
-            query.setParameter("status", status.name());
+            query.setParameter("status", status);
         }
         if (!resolutions.isEmpty()) {
             query.setParameter("resolutions", Joiner.on(", ").join(resolutions));
