@@ -31,4 +31,35 @@ abstract public class AbstractEntity {
     public boolean isPersistent() {
         return id != null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj.getClass().equals(this.getClass())) {
+
+            if (!isPersistent()) {
+                return super.equals(obj);
+            }
+
+            return this.getId().equals(((AbstractEntity) obj).getId());
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        }
+
+        return id.hashCode();
+    }
 }

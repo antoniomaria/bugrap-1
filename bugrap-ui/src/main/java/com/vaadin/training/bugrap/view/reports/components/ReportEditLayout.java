@@ -109,21 +109,25 @@ public class ReportEditLayout extends VerticalLayout {
         fieldGroup.bind(descriptionTextArea, "description");
 
         Project project = report.getProjectVersion().getProject();
+        versionCombobox.removeAllItems();
         for (ProjectVersion projectVersion : project.getProjectVersions()) {
             versionCombobox.addItem(projectVersion);
             versionCombobox.setItemCaption(projectVersion, projectVersion.getVersion());
         }
 
         //todo: fix to load all users
-        assignedCombobox.addItem(report.getAssigned());
-        assignedCombobox.setItemCaption(report.getAssigned(), report.getAssigned().getName());
+        assignedCombobox.removeAllItems();
+        for (User user : report.getProjectVersion().getProject().getParticipants()) {
+            assignedCombobox.addItem(user);
+            assignedCombobox.setItemCaption(user, user.getName());
+        }
 
         reportSummaryLabel.setValue(report.getSummary());
         priorityCombobox.setValue(report.getPriority());
         typeCombobox.setValue(report.getType());
         statusCombobox.setValue(report.getStatus());
         versionCombobox.setValue(report.getProjectVersion());
-        assignedCombobox.setValue(report.getAssigned().getName());
+        assignedCombobox.setValue(report.getAssigned());
         descriptionTextArea.setValue(report.getDescription());
 
         updateButton.focus();

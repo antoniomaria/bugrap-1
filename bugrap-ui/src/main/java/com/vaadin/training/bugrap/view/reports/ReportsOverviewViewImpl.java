@@ -2,6 +2,7 @@ package com.vaadin.training.bugrap.view.reports;
 
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
@@ -85,17 +86,30 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     @Override
     public void showReports(List<Report> reports) {
         reportsTable.showReports(reports);
+
+        hideReportEditPanel();
     }
 
     @Override
     public void showSelectedReport(Report report) {
         reportEditLayout.showReport(report);
 
+        showReportEditPanel();
+    }
+
+    @Override
+    public void selectReport(Report report) {
+        reportsTable.select(report);
+        reportsTable.setValue(report);
+        showReportEditPanel();
+    }
+
+    private void showReportEditPanel() {
         reportsPanel.setSplitPosition(50, Unit.PERCENTAGE);
         reportsPanel.setLocked(false);
     }
 
-    public void hideReportEditPanel() {
+    private void hideReportEditPanel() {
         reportsPanel.setSplitPosition(100, Unit.PERCENTAGE);
         reportsPanel.setLocked(true);
     }
