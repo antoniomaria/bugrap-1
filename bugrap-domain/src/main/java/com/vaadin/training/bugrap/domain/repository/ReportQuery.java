@@ -10,7 +10,7 @@ import java.util.List;
 public class ReportQuery {
     private User assignee;
     private ProjectVersion version;
-    private List<ReportStatus> statuses;
+    private ReportStatus status;
     private List<ReportResolution> resolutions;
 
 
@@ -30,12 +30,12 @@ public class ReportQuery {
         this.version = version;
     }
 
-    public List<ReportStatus> getStatuses() {
-        return statuses;
+    public ReportStatus getStatus() {
+        return status;
     }
 
-    public void setStatuses(List<ReportStatus> statuses) {
-        this.statuses = statuses;
+    public void setStatus(ReportStatus status) {
+        this.status = status;
     }
 
     public List<ReportResolution> getResolutions() {
