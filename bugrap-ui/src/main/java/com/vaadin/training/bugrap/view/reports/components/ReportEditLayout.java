@@ -2,45 +2,54 @@ package com.vaadin.training.bugrap.view.reports.components;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
-import com.vaadin.training.bugrap.domain.entity.Report;
+import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.ui.*;
 
 public class ReportEditLayout extends VerticalLayout {
 
-    private final FieldGroup fieldGroup;
+    private FieldGroup fieldGroup;
+
+    private final ComboBox priorityCombobox;
+    private final ComboBox typeCombobox;
+    private final ComboBox statusCombobox;
+    private final ComboBox assignedCombobox;
+    private final ComboBox versionCombobox;
+    private final TextArea descriptionTextArea;
+    private final Label reportSummaryLabel;
 
     public ReportEditLayout() {
         setWidth("100%");
         setHeight("600px");
 
-        Label reportSummaryLabel = new Label("MenuBar bottleneck usability problem");
+        reportSummaryLabel = new Label();
         addComponent(reportSummaryLabel);
 
         HorizontalLayout reportFormLayout = new HorizontalLayout();
 
         reportFormLayout.setSpacing(true);
 
-        ComboBox priorityCombobox = new ComboBox("Priority");
+        priorityCombobox = new ComboBox("Priority");
         reportFormLayout.addComponent(priorityCombobox);
 
-        ComboBox typeCombobox = new ComboBox("Type");
+        typeCombobox = new ComboBox("Type");
+        for (ReportType reportType : ReportType.values()) {
+            typeCombobox.addItem(reportType);
+            typeCombobox.setItemCaption(reportType, reportType.toString());
+        }
         reportFormLayout.addComponent(typeCombobox);
 
-        ComboBox statusCombobox = new ComboBox("Status");
+        statusCombobox = new ComboBox("Status");
+        for (ReportStatus reportStatus : ReportStatus.values()) {
+            statusCombobox.addItem(reportStatus);
+            statusCombobox.setItemCaption(reportStatus, reportStatus.toString());
+        }
         reportFormLayout.addComponent(statusCombobox);
 
-        ComboBox assignedCombobox = new ComboBox("Assigned to");
+        assignedCombobox = new ComboBox("Assigned to");
         reportFormLayout.addComponent(assignedCombobox);
 
-        ComboBox versionCombobox = new ComboBox("Version");
+        versionCombobox = new ComboBox("Version");
         reportFormLayout.addComponent(versionCombobox);
-
-        fieldGroup = new FieldGroup(new BeanItem<Report>(new Report()));
-        fieldGroup.bind(priorityCombobox, "priority");
-        fieldGroup.bind(typeCombobox, "type");
-        fieldGroup.bind(statusCombobox, "status");
-        fieldGroup.bind(assignedCombobox, "assigned");
-//        fieldGroup.bind(versionCombobox, "version");
 
         Button updateButton = new Button("Update", new Button.ClickListener() {
             @Override
@@ -66,12 +75,39 @@ public class ReportEditLayout extends VerticalLayout {
 
         addComponent(reportFormLayout);
 
-        TextArea descriptionTextArea = new TextArea();
+        descriptionTextArea = new TextArea();
         descriptionTextArea.setSizeFull();
         descriptionTextArea.setValue("Blablabla");
         addComponent(descriptionTextArea);
         setExpandRatio(descriptionTextArea, 1.0f);
 
         setSpacing(true);
+    }
+
+    public void showReport(Report report) {
+        fieldGroup = new FieldGroup(new BeanItem<Report>(report));
+        fieldGroup.bind(priorityCombobox, "priority");
+        fieldGroup.bind(typeCombobox, "type");
+        fieldGroup.bind(statusCombobox, "status");
+        fieldGroup.bind(assignedCombobox, "assigned");
+        fieldGroup.bind(versionCombobox, "projectVersion");
+
+        Project project = report.getProjectVersion().getProject();
+        for (ProjectVersion projectVersion : project.getProjectVersions()) {
+            versionCombobox.addItem(projectVersion);
+            versionCombobox.setItemCaption(projectVersion, projectVersion.getVersion());
+        }
+
+        //todo: fix to load all users
+        assignedCombobox.addItem(report.getAssigned());
+        assignedCombobox.setItemCaption(report.getAssigned(), report.getAssigned().getName());
+
+        reportSummaryLabel.setValue(report.getSummary());
+        priorityCombobox.setValue(report.getPriority());
+        typeCombobox.setValue(report.getType());
+        statusCombobox.setValue(report.getStatus());
+        versionCombobox.setValue(report.getProjectVersion());
+        assignedCombobox.setValue(report.getAssigned().getName());
+        descriptionTextArea.setValue(report.getDescription());
     }
 }

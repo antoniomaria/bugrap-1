@@ -8,6 +8,7 @@ import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.view.reports.components.*;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.VerticalSplitPanel;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -23,6 +24,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     private final StatusReportLayout statusReportLayout;
     private final FiltersLayout filtersLayout;
     private final ReportsTable reportsTable;
+    private final ReportEditLayout reportEditLayout;
 
     public ReportsOverviewViewImpl() {
         setSizeFull();
@@ -43,11 +45,15 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         statusAndFiltersLayout.setSpacing(true);
         addComponent(statusAndFiltersLayout);
 
-        reportsTable = new ReportsTable();
-        addComponent(reportsTable);
-        setExpandRatio(reportsTable, 1.0f);
+        VerticalSplitPanel reportsPanel = new VerticalSplitPanel();
+        addComponent(reportsPanel);
+        setExpandRatio(reportsPanel, 1.0f);
 
-        addComponent(new ReportEditLayout());
+        reportsTable = new ReportsTable();
+        reportsPanel.setFirstComponent(reportsTable);
+
+        reportEditLayout = new ReportEditLayout();
+        reportsPanel.setSecondComponent(reportEditLayout);
 
         setSpacing(true);
     }
@@ -57,6 +63,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         reportsPresenter.setView(this);
         statusReportLayout.setPresenter(reportsPresenter);
         filtersLayout.setPresenter(reportsPresenter);
+        reportsTable.setPresenter(reportsPresenter);
     }
 
     @Override
@@ -73,5 +80,10 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     @Override
     public void showReports(List<Report> reports) {
         reportsTable.showReports(reports);
+    }
+
+    @Override
+    public void showSelectedReport(Report report) {
+        reportEditLayout.showReport(report);
     }
 }

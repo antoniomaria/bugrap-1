@@ -98,4 +98,8 @@ public class ReportsPresenter extends Presenter {
 
         getView().showReports(reports);
     }
+
+    public void reportSelected(Report report) {
+        getView().showSelectedReport(report);
+    }
 }
