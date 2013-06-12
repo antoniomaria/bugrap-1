@@ -21,6 +21,7 @@ public class ReportEditLayout extends VerticalLayout {
     private final Label reportSummaryLabel;
 
     private Report currentReport;
+    private final Button updateButton;
 
     public void setPresenter(ReportsPresenter presenter) {
         this.presenter = presenter;
@@ -64,7 +65,7 @@ public class ReportEditLayout extends VerticalLayout {
         versionCombobox.setNullSelectionAllowed(false);
         reportFormLayout.addComponent(versionCombobox);
 
-        Button updateButton = new Button("Update", new Button.ClickListener() {
+        updateButton = new Button("Update", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 try {
@@ -76,6 +77,7 @@ public class ReportEditLayout extends VerticalLayout {
                 }
             }
         });
+
         reportFormLayout.addComponent(updateButton);
         reportFormLayout.setComponentAlignment(updateButton, Alignment.BOTTOM_CENTER);
 
@@ -92,7 +94,6 @@ public class ReportEditLayout extends VerticalLayout {
 
         descriptionTextArea = new TextArea();
         descriptionTextArea.setSizeFull();
-        descriptionTextArea.setValue("Blablabla");
         addComponent(descriptionTextArea);
         setExpandRatio(descriptionTextArea, 1.0f);
 
@@ -127,5 +128,7 @@ public class ReportEditLayout extends VerticalLayout {
         versionCombobox.setValue(report.getProjectVersion());
         assignedCombobox.setValue(report.getAssigned().getName());
         descriptionTextArea.setValue(report.getDescription());
+
+        updateButton.focus();
     }
 }
