@@ -12,11 +12,11 @@ public class ReportEditLayout extends VerticalLayout {
 
     private FieldGroup fieldGroup;
 
-    private final ComboBox priorityCombobox;
-    private final ComboBox typeCombobox;
-    private final ComboBox statusCombobox;
-    private final ComboBox assignedCombobox;
-    private final ComboBox versionCombobox;
+    private final NativeSelect priorityCombobox;
+    private final NativeSelect typeCombobox;
+    private final NativeSelect statusCombobox;
+    private final NativeSelect assignedCombobox;
+    private final NativeSelect versionCombobox;
     private final TextArea descriptionTextArea;
     private final Label reportSummaryLabel;
 
@@ -36,13 +36,11 @@ public class ReportEditLayout extends VerticalLayout {
 
         reportFormLayout.setSpacing(true);
 
-        priorityCombobox = new ComboBox("Priority");
+        priorityCombobox = new NativeSelect("Priority");
         reportFormLayout.addComponent(priorityCombobox);
-        priorityCombobox.setTextInputAllowed(false);
         priorityCombobox.setNullSelectionAllowed(false);
 
-        typeCombobox = new ComboBox("Type");
-        typeCombobox.setTextInputAllowed(false);
+        typeCombobox = new NativeSelect("Type");
         typeCombobox.setNullSelectionAllowed(false);
         for (ReportType reportType : ReportType.values()) {
             typeCombobox.addItem(reportType);
@@ -50,8 +48,7 @@ public class ReportEditLayout extends VerticalLayout {
         }
         reportFormLayout.addComponent(typeCombobox);
 
-        statusCombobox = new ComboBox("Status");
-        statusCombobox.setTextInputAllowed(false);
+        statusCombobox = new NativeSelect("Status");
         statusCombobox.setNullSelectionAllowed(false);
         for (ReportStatus reportStatus : ReportStatus.values()) {
             statusCombobox.addItem(reportStatus);
@@ -59,13 +56,11 @@ public class ReportEditLayout extends VerticalLayout {
         }
         reportFormLayout.addComponent(statusCombobox);
 
-        assignedCombobox = new ComboBox("Assigned to");
-        assignedCombobox.setTextInputAllowed(false);
+        assignedCombobox = new NativeSelect("Assigned to");
         assignedCombobox.setNullSelectionAllowed(false);
         reportFormLayout.addComponent(assignedCombobox);
 
-        versionCombobox = new ComboBox("Version");
-        versionCombobox.setTextInputAllowed(false);
+        versionCombobox = new NativeSelect("Version");
         versionCombobox.setNullSelectionAllowed(false);
         reportFormLayout.addComponent(versionCombobox);
 
