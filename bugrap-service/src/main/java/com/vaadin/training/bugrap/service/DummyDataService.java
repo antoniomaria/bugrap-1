@@ -1,23 +1,21 @@
 package com.vaadin.training.bugrap.service;
 
-import com.google.common.collect.Lists;
 import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.domain.repository.ProjectRepository;
 import com.vaadin.training.bugrap.domain.repository.ReportRepository;
 import com.vaadin.training.bugrap.domain.repository.UserRepository;
 
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
-@Stateless
+@Singleton
 public class DummyDataService {
 
     @Inject
@@ -68,15 +66,13 @@ public class DummyDataService {
         project = projectRepository.save(project);
     }
 
-    private void generateReports() {
+    public void generateReports() {
 
         for (ProjectVersion version : project.getProjectVersions()) {
-            Random random = new Random(0);
-            List<Report> reports = Lists.newLinkedList();
+            Random random = new Random(123);
 
-            for (int i = 1; i <= random.nextInt(20); i++) {
+            for (int i = 1; i <= random.nextInt(20) + 1; i++) {
                 Report report = new Report();
-                reports.add(report);
                 report.setType(ReportType.values()[random.nextInt(ReportType.values().length)]);
                 report.setStatus(ReportStatus.values()[random.nextInt(ReportStatus.values().length)]);
                 report.setSummary("This is bug #" + i);

@@ -3,15 +3,16 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
     <persistence-unit name="bugrap">
+        <jta-data-source>bugrap</jta-data-source>
         <class>com.vaadin.training.bugrap.domain.entity.AbstractEntity</class>
         <class>com.vaadin.training.bugrap.domain.entity.Comment</class>
         <class>com.vaadin.training.bugrap.domain.entity.Project</class>
         <class>com.vaadin.training.bugrap.domain.entity.ProjectVersion</class>
         <class>com.vaadin.training.bugrap.domain.entity.Report</class>
         <class>com.vaadin.training.bugrap.domain.entity.User</class>
-        <jta-data-source>bugrap</jta-data-source>
         <properties>
-            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+            <property name="openjpa.jdbc.SynchronizeMappings"
+                      value="buildSchema(foreignKeys=true,schemaAction='dropDB,add')"/>
         </properties>
     </persistence-unit>
 </persistence>

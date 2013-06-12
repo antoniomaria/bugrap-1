@@ -1,9 +1,10 @@
 package com.vaadin.training.bugrap.service;
 
-import com.google.common.collect.Lists;
 import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.domain.repository.ProjectRepository;
+import com.vaadin.training.bugrap.domain.repository.ReportQuery;
+import com.vaadin.training.bugrap.domain.repository.ReportRepository;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -14,15 +15,18 @@ import java.util.List;
 public class ReportServiceImpl implements ReportService {
 
     @Inject
-    private ProjectRepository repository;
+    private ProjectRepository projectRepository;
+
+    @Inject
+    ReportRepository reportRepository;
 
     @Override
     public Project findProject() {
-        return repository.findAll().get(0);
+        return projectRepository.findAll().get(0);
     }
 
     @Override
     public List<Report> getReports(ReportQuery reportQuery) {
-        return Lists.newArrayList();
+        return reportRepository.findReports(reportQuery);
     }
 }

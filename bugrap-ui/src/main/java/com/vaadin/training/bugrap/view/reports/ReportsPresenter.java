@@ -4,7 +4,8 @@ import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.domain.entity.ReportStatus;
-import com.vaadin.training.bugrap.service.ReportQuery;
+import com.vaadin.training.bugrap.domain.repository.ReportQuery;
+import com.vaadin.training.bugrap.service.DummyDataService;
 import com.vaadin.training.bugrap.service.ReportService;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
 
@@ -18,6 +19,9 @@ public class ReportsPresenter extends Presenter {
 
     @Inject
     private ReportService reportService;
+
+    @Inject
+    DummyDataService dummyDataService;
 
     @Override
     public void viewEntered(String params) {

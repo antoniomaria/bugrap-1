@@ -53,7 +53,9 @@ public class ProjectRepositoryTest {
 
     @After
     public void tearDown() {
-        em.getTransaction().rollback();
+        if (em != null) {
+            em.getTransaction().rollback();
+        }
     }
 
 

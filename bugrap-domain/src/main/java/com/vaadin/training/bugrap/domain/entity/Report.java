@@ -15,10 +15,10 @@ public class Report extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ReportResolution resolution;
 
-    @Column(columnDefinition = "VARCHAR(5000)")
+    @Column(length = 5000)
     private String summary;
 
-    @Column(columnDefinition = "VARCHAR(5000)")
+    @Column(length = 5000)
     private String description;
 
     @ManyToOne
