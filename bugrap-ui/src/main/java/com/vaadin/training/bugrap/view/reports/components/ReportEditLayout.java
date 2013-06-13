@@ -2,6 +2,7 @@ package com.vaadin.training.bugrap.view.reports.components;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.BrowserWindowOpener;
 import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
@@ -23,6 +24,7 @@ public class ReportEditLayout extends VerticalLayout {
 
     private final Button updateButton;
     private final Button newWindowButton;
+    private final TextField reportSummaryField;
 
     public void setPresenter(ReportsPresenter presenter) {
         this.presenter = presenter;
@@ -34,6 +36,7 @@ public class ReportEditLayout extends VerticalLayout {
 
         HorizontalLayout headerLayout = new HorizontalLayout();
         headerLayout.setSpacing(true);
+        headerLayout.setWidth("100%");
 
         newWindowButton = new Button("New window", new Button.ClickListener() {
             @Override
@@ -45,7 +48,15 @@ public class ReportEditLayout extends VerticalLayout {
         headerLayout.addComponent(newWindowButton);
 
         reportSummaryLabel = new Label();
+        reportSummaryLabel.setWidth("100%");
         headerLayout.addComponent(reportSummaryLabel);
+        headerLayout.setExpandRatio(reportSummaryLabel, 1.0f);
+
+        reportSummaryField = new TextField();
+        reportSummaryField.setNullRepresentation("");
+        reportSummaryField.setVisible(false);
+        reportSummaryField.setWidth("100%");
+        headerLayout.addComponent(reportSummaryField);
 
         addComponent(headerLayout);
 
@@ -103,6 +114,7 @@ public class ReportEditLayout extends VerticalLayout {
                 }
             }
         });
+        updateButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
         reportFormLayout.addComponent(updateButton);
         reportFormLayout.setComponentAlignment(updateButton, Alignment.BOTTOM_CENTER);
@@ -129,6 +141,7 @@ public class ReportEditLayout extends VerticalLayout {
 
     public void showReport(Report report) {
         fieldGroup = new FieldGroup(new BeanItem<Report>(report));
+        fieldGroup.bind(reportSummaryField, "summary");
         fieldGroup.bind(priorityCombobox, "priority");
         fieldGroup.bind(typeCombobox, "type");
         fieldGroup.bind(statusCombobox, "status");
@@ -168,5 +181,10 @@ public class ReportEditLayout extends VerticalLayout {
             assignedCombobox.addItem(user);
             assignedCombobox.setItemCaption(user, user.getName());
         }
+    }
+
+    public void enableEditableSummary() {
+        reportSummaryLabel.setVisible(false);
+        reportSummaryField.setVisible(true);
     }
 }

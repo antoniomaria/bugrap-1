@@ -1,5 +1,6 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
@@ -30,11 +31,14 @@ public class ReportPopupWindow extends Window {
         reportEditLayout = new ReportEditLayout();
 
         setContent(reportEditLayout);
+
+        setCloseShortcut(ShortcutAction.KeyCode.ESCAPE);
     }
 
     public void showReport(Report report) {
         reportEditLayout.showReport(report);
         reportEditLayout.hideNewWindowButton();
+        reportEditLayout.enableEditableSummary();
     }
 
     public void showNewReport(Report report, Project project) {
