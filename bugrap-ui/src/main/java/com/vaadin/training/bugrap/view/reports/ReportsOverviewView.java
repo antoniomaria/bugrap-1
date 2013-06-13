@@ -20,4 +20,6 @@ public interface ReportsOverviewView extends View {
     void showReportPopup(Report report);
 
     void showNewReportPopup(Report currentReport, Project project);
+
+    void hidePopupWindow();
 }

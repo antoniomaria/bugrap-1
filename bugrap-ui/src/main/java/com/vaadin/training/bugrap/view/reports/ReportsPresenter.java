@@ -99,6 +99,7 @@ public class ReportsPresenter extends Presenter {
         getView().showReports(reports);
         getView().selectReport(currentReport);
         getView().showSelectedReport(currentReport);
+        getView().hidePopupWindow();
     }
 
     public void newWindowReportButtonClicked() {

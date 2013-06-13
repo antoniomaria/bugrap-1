@@ -29,6 +29,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     private final ReportsTable reportsTable;
     private final ReportEditLayout reportEditLayout;
     private final VerticalSplitPanel reportsPanel;
+    private ReportPopupWindow reportPopupWindow;
 
     public ReportsOverviewViewImpl() {
         setSizeFull();
@@ -109,7 +110,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
 
     @Override
     public void showReportPopup(Report report) {
-        ReportPopupWindow reportPopupWindow = initReportPopup();
+        reportPopupWindow = initReportPopup();
 
         reportPopupWindow.showReport(report);
     }
@@ -125,8 +126,16 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     }
 
     @Override
+    public void hidePopupWindow() {
+        if (reportPopupWindow != null) {
+            UI.getCurrent().removeWindow(reportPopupWindow);
+            reportPopupWindow = null;
+        }
+    }
+
+    @Override
     public void showNewReportPopup(Report report, Project project) {
-        ReportPopupWindow reportPopupWindow = initReportPopup();
+        reportPopupWindow = initReportPopup();
 
         reportPopupWindow.showNewReport(report, project);
     }
