@@ -19,6 +19,7 @@ import java.util.List;
 @CDIView(ReportsOverviewView.NAME)
 public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOverviewView {
 
+    private final ManageButtonsLayout manageButtonsLayout;
     @Inject
     ReportsPresenter reportsPresenter;
 
@@ -34,7 +35,8 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
 
         headerLayout = new HeaderLayout();
         addComponent(headerLayout);
-        addComponent(new ManageButtonsLayout());
+        manageButtonsLayout = new ManageButtonsLayout();
+        addComponent(manageButtonsLayout);
 
         VerticalLayout statusAndFiltersLayout = new VerticalLayout();
         statusAndFiltersLayout.addComponent(new Label("<hr/>", ContentMode.HTML));
@@ -70,6 +72,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         filtersLayout.setPresenter(reportsPresenter);
         reportsTable.setPresenter(reportsPresenter);
         reportEditLayout.setPresenter(reportsPresenter);
+        manageButtonsLayout.setPresenter(reportsPresenter);
     }
 
     @Override
@@ -102,6 +105,30 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         reportsTable.select(report);
         reportsTable.setValue(report);
         showReportEditPanel();
+    }
+
+    @Override
+    public void showReportPopup(Report report) {
+        ReportPopupWindow reportPopupWindow = initReportPopup();
+
+        reportPopupWindow.showReport(report);
+    }
+
+    private ReportPopupWindow initReportPopup() {
+        ReportPopupWindow reportPopupWindow = new ReportPopupWindow();
+
+        reportPopupWindow.setPresenter(reportsPresenter);
+
+        UI.getCurrent().addWindow(reportPopupWindow);
+
+        return reportPopupWindow;
+    }
+
+    @Override
+    public void showNewReportPopup(Report report, Project project) {
+        ReportPopupWindow reportPopupWindow = initReportPopup();
+
+        reportPopupWindow.showNewReport(report, project);
     }
 
     private void showReportEditPanel() {

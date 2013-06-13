@@ -53,6 +53,16 @@ public class ReportEditLayout extends VerticalLayout {
         reportFormLayout.setSpacing(true);
 
         priorityCombobox = new NativeSelect("Priority");
+        priorityCombobox.setNullSelectionAllowed(false);
+        for (ReportPriority priority : ReportPriority.values()) {
+            priorityCombobox.addItem(priority);
+
+            StringBuilder builder = new StringBuilder();
+            for(int i=0; i < priority.ordinal(); i++) {
+                builder.append("I");
+            }
+            priorityCombobox.setItemCaption(priority, builder.toString());
+        }
         reportFormLayout.addComponent(priorityCombobox);
         priorityCombobox.setNullSelectionAllowed(false);
 
@@ -124,17 +134,9 @@ public class ReportEditLayout extends VerticalLayout {
         fieldGroup.bind(versionCombobox, "projectVersion");
         fieldGroup.bind(descriptionTextArea, "description");
 
-        Project project = report.getProjectVersion().getProject();
-        versionCombobox.removeAllItems();
-        for (ProjectVersion projectVersion : project.getProjectVersions()) {
-            versionCombobox.addItem(projectVersion);
-            versionCombobox.setItemCaption(projectVersion, projectVersion.getVersion());
-        }
-
-        assignedCombobox.removeAllItems();
-        for (User user : report.getProjectVersion().getProject().getParticipants()) {
-            assignedCombobox.addItem(user);
-            assignedCombobox.setItemCaption(user, user.getName());
+        if (report.getProjectVersion() != null) {
+            Project project = report.getProjectVersion().getProject();
+            populateDataFromProject(project);
         }
 
         reportSummaryLabel.setValue(report.getSummary());
@@ -150,5 +152,19 @@ public class ReportEditLayout extends VerticalLayout {
 
     public void hideNewWindowButton() {
         newWindowButton.setVisible(false);
+    }
+
+    public void populateDataFromProject(Project project) {
+        versionCombobox.removeAllItems();
+        for (ProjectVersion projectVersion : project.getProjectVersions()) {
+            versionCombobox.addItem(projectVersion);
+            versionCombobox.setItemCaption(projectVersion, projectVersion.getVersion());
+        }
+
+        assignedCombobox.removeAllItems();
+        for (User user : project.getParticipants()) {
+            assignedCombobox.addItem(user);
+            assignedCombobox.setItemCaption(user, user.getName());
+        }
     }
 }

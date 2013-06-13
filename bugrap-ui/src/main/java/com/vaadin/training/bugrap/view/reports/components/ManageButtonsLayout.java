@@ -1,15 +1,27 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
+import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 
 public class ManageButtonsLayout extends HorizontalLayout {
+    private ReportsPresenter presenter;
+
+    public void setPresenter(ReportsPresenter presenter) {
+        this.presenter = presenter;
+    }
+
     public ManageButtonsLayout() {
         setWidth("100%");
 
-        Button reportBugButton = new Button("Report a bug");
+        Button reportBugButton = new Button("Report a bug", new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                presenter.reportBugButtonClicked();
+            }
+        });
         addComponent(reportBugButton);
         setComponentAlignment(reportBugButton, Alignment.BOTTOM_CENTER);
 

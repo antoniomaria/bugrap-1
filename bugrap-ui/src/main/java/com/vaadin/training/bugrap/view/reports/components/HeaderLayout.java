@@ -11,7 +11,7 @@ public class HeaderLayout extends HorizontalLayout {
     public HeaderLayout() {
         setWidth("100%");
 
-        projectNameLabel = new Label("Project name that is rather long");
+        projectNameLabel = new Label();
         addComponent(projectNameLabel);
     }
 

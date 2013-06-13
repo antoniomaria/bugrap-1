@@ -11,6 +11,7 @@ import com.vaadin.ui.UI;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ReportsPresenter extends Presenter {
@@ -34,7 +35,7 @@ public class ReportsPresenter extends Presenter {
         currentUser = new User();
 
         getView().showProject(project);
-        getView().showReports(reportService.getReports(new ReportQuery()));
+        getView().showReports(reportService.getReports(query));
     }
 
     public void projectVersionChanged(ProjectVersion version) {
@@ -101,12 +102,16 @@ public class ReportsPresenter extends Presenter {
     }
 
     public void newWindowReportButtonClicked() {
-        ReportPopupWindow reportPopupWindow = new ReportPopupWindow();
+        getView().showReportPopup(currentReport);
+    }
 
-        reportPopupWindow.setPresenter(this);
+    public void reportBugButtonClicked() {
+        currentReport = new Report();
 
-        UI.getCurrent().addWindow(reportPopupWindow);
+        currentReport.setTimestamp(new Date());
 
-        reportPopupWindow.showReport(currentReport);
+        Project project = projectService.findProject();
+
+        getView().showNewReportPopup(currentReport, project);
     }
 }

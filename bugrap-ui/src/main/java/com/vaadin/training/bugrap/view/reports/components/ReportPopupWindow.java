@@ -1,5 +1,6 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
+import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.Window;
@@ -27,5 +28,11 @@ public class ReportPopupWindow extends Window {
     public void showReport(Report report) {
         reportEditLayout.showReport(report);
         reportEditLayout.hideNewWindowButton();
+    }
+
+    public void showNewReport(Report report, Project project) {
+        showReport(report);
+
+        reportEditLayout.populateDataFromProject(project);
     }
 }
