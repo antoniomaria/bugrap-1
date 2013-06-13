@@ -30,6 +30,7 @@ public class ReportEditLayout extends VerticalLayout {
 
     public ReportEditLayout() {
         setSizeFull();
+        setMargin(true);
 
         HorizontalLayout headerLayout = new HorizontalLayout();
         headerLayout.setSpacing(true);

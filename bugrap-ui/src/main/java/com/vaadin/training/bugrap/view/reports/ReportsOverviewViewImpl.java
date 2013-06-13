@@ -2,7 +2,6 @@ package com.vaadin.training.bugrap.view.reports;
 
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
@@ -33,6 +32,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
 
     public ReportsOverviewViewImpl() {
         setSizeFull();
+        setMargin(true);
 
         headerLayout = new HeaderLayout();
         addComponent(headerLayout);
@@ -116,7 +116,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     }
 
     private ReportPopupWindow initReportPopup() {
-        ReportPopupWindow reportPopupWindow = new ReportPopupWindow();
+        ReportPopupWindow reportPopupWindow = new ReportPopupWindow("Edit report");
 
         reportPopupWindow.setPresenter(reportsPresenter);
 

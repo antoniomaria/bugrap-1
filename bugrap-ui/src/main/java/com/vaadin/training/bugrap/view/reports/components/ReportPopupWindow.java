@@ -4,6 +4,7 @@ import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.themes.Reindeer;
 
 public class ReportPopupWindow extends Window {
 
@@ -17,8 +18,14 @@ public class ReportPopupWindow extends Window {
 
     private final ReportEditLayout reportEditLayout;
 
-    public ReportPopupWindow() {
-        setSizeFull();
+    public ReportPopupWindow(String caption) {
+        setWidth("90%");
+        setHeight("90%");
+        center();
+
+        addStyleName(Reindeer.WINDOW_LIGHT);
+
+        setCaption(caption);
 
         reportEditLayout = new ReportEditLayout();
 
