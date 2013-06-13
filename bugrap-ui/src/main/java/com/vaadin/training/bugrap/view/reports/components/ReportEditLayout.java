@@ -59,7 +59,7 @@ public class ReportEditLayout extends VerticalLayout {
             priorityCombobox.addItem(priority);
 
             StringBuilder builder = new StringBuilder();
-            for(int i=0; i < priority.ordinal(); i++) {
+            for (int i = ReportPriority.values().length; i >= priority.ordinal(); i--) {
                 builder.append("I");
             }
             priorityCombobox.setItemCaption(priority, builder.toString());
@@ -120,6 +120,7 @@ public class ReportEditLayout extends VerticalLayout {
 
         descriptionTextArea = new TextArea();
         descriptionTextArea.setSizeFull();
+        descriptionTextArea.setNullRepresentation("");
         addComponent(descriptionTextArea);
         setExpandRatio(descriptionTextArea, 1.0f);
 

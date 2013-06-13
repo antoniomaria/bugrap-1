@@ -4,6 +4,7 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.training.bugrap.domain.entity.Report;
+import com.vaadin.training.bugrap.domain.entity.ReportPriority;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.training.bugrap.view.reports.components.converter.TimestampConverter;
 import com.vaadin.ui.CssLayout;
@@ -41,7 +42,7 @@ public class ReportsTable extends Table {
                 HorizontalLayout layout = new HorizontalLayout();
                 layout.setSpacing(true);
                 layout.addStyleName("priority");
-                for (int i = 0; i < report.getPriority().ordinal(); i++) {
+                for (int i = ReportPriority.values().length; i >= report.getPriority().ordinal(); i--) {
                     layout.addComponent(new Label("|"));
                 }
 
