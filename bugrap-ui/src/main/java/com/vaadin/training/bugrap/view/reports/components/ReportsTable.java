@@ -5,11 +5,13 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
+import com.vaadin.training.bugrap.view.reports.components.converter.TimestampConverter;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 
+import java.util.Date;
 import java.util.List;
 
 public class ReportsTable extends Table {
@@ -52,5 +54,8 @@ public class ReportsTable extends Table {
         setContainerDataSource(new BeanItemContainer<Report>(Report.class, reports));
         setVisibleColumns(new Object[]{"priority", "type", "summary", "resolution", "assigned", "timestamp", "projectVersion"});
         sort(new Object[]{"priority"}, new boolean[]{false});
+
+        setConverter("timestamp", new TimestampConverter());
+        setColumnHeader("timestamp", "Reported");
     }
 }
