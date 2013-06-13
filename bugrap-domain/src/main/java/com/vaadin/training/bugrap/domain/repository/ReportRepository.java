@@ -44,7 +44,7 @@ public class ReportRepository extends AbstractRepository<Report> {
         }
 
         if (!resolutions.isEmpty()) {
-            criteria.add("r.resolution in (:resolutions)");
+            criteria.add("r.resolution in :resolutions");
         }
 
 
@@ -72,7 +72,7 @@ public class ReportRepository extends AbstractRepository<Report> {
             query.setParameter("status", status);
         }
         if (!resolutions.isEmpty()) {
-            query.setParameter("resolutions", Joiner.on(", ").join(resolutions));
+            query.setParameter("resolutions", resolutions);
         }
         if (searchTerm != null && !searchTerm.isEmpty()) {
             String searchWildcard = "%" + searchTerm.toUpperCase() + "%";
