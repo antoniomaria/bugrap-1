@@ -2,12 +2,8 @@ package com.vaadin.training.bugrap.domain.repository;
 
 import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 
 import static org.junit.Assert.*;
 
@@ -15,17 +11,16 @@ import static org.junit.Assert.*;
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
-public class ProjectRepositoryTest {
+public class ProjectRepositoryTest extends AbstractRepositoryTest {
 
     private ProjectRepository projectRepository;
-    private EntityManager em;
+
 
     @Before
     public void setUp() {
+        super.setUp();
         projectRepository = new ProjectRepository();
-        em = Persistence.createEntityManagerFactory("test").createEntityManager();
         projectRepository.em = em;
-        em.getTransaction().begin();
     }
 
     @Test
@@ -60,13 +55,4 @@ public class ProjectRepositoryTest {
 
         assertNotNull(version.getId());
     }
-
-    @After
-    public void tearDown() {
-        if (em != null) {
-            em.getTransaction().rollback();
-        }
-    }
-
-
 }

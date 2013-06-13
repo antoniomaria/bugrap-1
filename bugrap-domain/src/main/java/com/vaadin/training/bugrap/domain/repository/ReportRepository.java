@@ -11,6 +11,9 @@ import java.util.List;
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
 public class ReportRepository extends AbstractRepository<Report> {
+
+    private boolean whereAdded;
+
     @Override
     protected Class<Report> getEntityClass() {
         return Report.class;
@@ -21,6 +24,7 @@ public class ReportRepository extends AbstractRepository<Report> {
         ProjectVersion version = reportQuery.getVersion();
         ReportStatus status = reportQuery.getStatus();
         List<ReportResolution> resolutions = reportQuery.getResolutions();
+        String searchTerm = reportQuery.getSearchTerm();
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("select r from Report r ");
@@ -43,12 +47,17 @@ public class ReportRepository extends AbstractRepository<Report> {
             criteria.add("r.resolution in (:resolutions)");
         }
 
+
         if (!criteria.isEmpty()) {
             stringBuilder.append("where ");
+            whereAdded = true;
             stringBuilder.append(Joiner.on(" and ").join(criteria));
         }
 
+        addSearchCriteria(searchTerm, stringBuilder, whereAdded);
+
         String queryString = stringBuilder.toString();
+        System.out.println(queryString);
 
         TypedQuery<Report> query = em.createQuery(queryString, Report.class);
 
@@ -65,8 +74,33 @@ public class ReportRepository extends AbstractRepository<Report> {
         if (!resolutions.isEmpty()) {
             query.setParameter("resolutions", Joiner.on(", ").join(resolutions));
         }
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            String searchWildcard = "%" + searchTerm.toUpperCase() + "%";
+            query.setParameter("summary", searchWildcard);
+            query.setParameter("description", searchWildcard);
+        }
 
         List<Report> resultList = query.getResultList();
         return resultList;
+    }
+
+    private void addSearchCriteria(String searchTerm, StringBuilder stringBuilder, boolean whereAdded) {
+        List<String> criteria = Lists.newLinkedList();
+
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            criteria.add("upper(r.summary) like :summary");
+            criteria.add("upper(r.description) like :description");
+        }
+
+        if (!criteria.isEmpty()) {
+            if (whereAdded) {
+                stringBuilder.append("and (");
+            } else {
+                stringBuilder.append("where (");
+            }
+
+            stringBuilder.append(Joiner.on(" or ").join(criteria));
+            stringBuilder.append(")");
+        }
     }
 }

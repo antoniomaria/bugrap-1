@@ -13,6 +13,7 @@ public class ReportQuery {
     private ProjectVersion version;
     private ReportStatus status;
     private List<ReportResolution> resolutions = Lists.newLinkedList();
+    private String searchTerm;
 
 
     public User getAssignee() {
@@ -45,5 +46,13 @@ public class ReportQuery {
 
     public void setResolutions(List<ReportResolution> resolutions) {
         this.resolutions = resolutions;
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
+    }
+
+    public String getSearchTerm() {
+        return searchTerm;
     }
 }
