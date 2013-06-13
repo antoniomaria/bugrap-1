@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ReportRepository extends AbstractRepository<Report> {
 
-    private boolean whereAdded;
+
 
     @Override
     protected Class<Report> getEntityClass() {
@@ -20,71 +20,57 @@ public class ReportRepository extends AbstractRepository<Report> {
     }
 
     public List<Report> findReports(ReportQuery reportQuery) {
-        User assignee = reportQuery.getAssignee();
-        ProjectVersion version = reportQuery.getVersion();
-        ReportStatus status = reportQuery.getStatus();
-        List<ReportResolution> resolutions = reportQuery.getResolutions();
-        String searchTerm = reportQuery.getSearchTerm();
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("select r from Report r ");
-
-        List<String> criteria = Lists.newLinkedList();
-
-        if (assignee != null) {
-            criteria.add("r.assigned.id = :assigneeId");
-        }
-
-        if (version != null) {
-            criteria.add("r.projectVersion.id = :versionId");
-        }
-
-        if (status != null) {
-            criteria.add("r.status = :status");
-        }
-
-        if (!resolutions.isEmpty()) {
-            criteria.add("r.resolution in :resolutions");
-        }
-
-
-        if (!criteria.isEmpty()) {
-            stringBuilder.append("where ");
-            whereAdded = true;
-            stringBuilder.append(Joiner.on(" and ").join(criteria));
-        }
-
-        addSearchCriteria(searchTerm, stringBuilder, whereAdded);
-
-        String queryString = stringBuilder.toString();
-        System.out.println(queryString);
+        String queryString = generateQueryString(reportQuery, reportQuery.getSearchTerm());
 
         TypedQuery<Report> query = em.createQuery(queryString, Report.class);
 
+        assignParameters(reportQuery, query);
 
-        if (assignee != null) {
-            query.setParameter("assigneeId", assignee.getId());
-        }
-        if (version != null) {
-            query.setParameter("versionId", version.getId());
-        }
-        if (status != null) {
-            query.setParameter("status", status);
-        }
-        if (!resolutions.isEmpty()) {
-            query.setParameter("resolutions", resolutions);
-        }
-        if (searchTerm != null && !searchTerm.isEmpty()) {
-            String searchWildcard = "%" + searchTerm.toUpperCase() + "%";
-            query.setParameter("summary", searchWildcard);
-            query.setParameter("description", searchWildcard);
-        }
-
-        List<Report> resultList = query.getResultList();
-        return resultList;
+        return query.getResultList();
     }
 
-    private void addSearchCriteria(String searchTerm, StringBuilder stringBuilder, boolean whereAdded) {
+    private String generateQueryString(ReportQuery reportQuery, String searchTerm) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("select r from Report r ");
+
+        boolean criteriaAdded = addBaseCriteria(reportQuery, stringBuilder);
+
+        addSearchCriteria(searchTerm, stringBuilder, criteriaAdded);
+
+        return stringBuilder.toString();
+    }
+
+    private boolean addBaseCriteria(ReportQuery reportQuery, StringBuilder stringBuilder) {
+        List<String> criteria = Lists.newLinkedList();
+
+        if (reportQuery.getAssignee() != null) {
+            criteria.add("r.assigned.id = :assigneeId");
+        }
+
+        if (reportQuery.getVersion() != null) {
+            criteria.add("r.projectVersion.id = :versionId");
+        }
+
+        if (reportQuery.getStatus() != null) {
+            criteria.add("r.status = :status");
+        }
+
+        if (!reportQuery.getResolutions().isEmpty()) {
+            criteria.add("r.resolution in :resolutions");
+        }
+
+        boolean criteriaAdded = false;
+
+        if (!criteria.isEmpty()) {
+            stringBuilder.append("where ");
+            criteriaAdded = true;
+            stringBuilder.append(Joiner.on(" and ").join(criteria));
+        }
+        return criteriaAdded;
+    }
+
+    private void addSearchCriteria(String searchTerm, StringBuilder stringBuilder, boolean criteriaAdded) {
         List<String> criteria = Lists.newLinkedList();
 
         if (searchTerm != null && !searchTerm.isEmpty()) {
@@ -93,7 +79,7 @@ public class ReportRepository extends AbstractRepository<Report> {
         }
 
         if (!criteria.isEmpty()) {
-            if (whereAdded) {
+            if (criteriaAdded) {
                 stringBuilder.append("and (");
             } else {
                 stringBuilder.append("where (");
@@ -101,6 +87,28 @@ public class ReportRepository extends AbstractRepository<Report> {
 
             stringBuilder.append(Joiner.on(" or ").join(criteria));
             stringBuilder.append(")");
+        }
+    }
+
+    private void assignParameters(ReportQuery reportQuery, TypedQuery<Report> query) {
+        if (reportQuery.getAssignee() != null) {
+            query.setParameter("assigneeId", reportQuery.getAssignee().getId());
+        }
+        if (reportQuery.getVersion() != null) {
+            query.setParameter("versionId", reportQuery.getVersion().getId());
+        }
+        if (reportQuery.getStatus() != null) {
+            query.setParameter("status", reportQuery.getStatus());
+        }
+        if (!reportQuery.getResolutions().isEmpty()) {
+            query.setParameter("resolutions", reportQuery.getResolutions());
+        }
+
+        String searchTerm = reportQuery.getSearchTerm();
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            String searchWildcard = "%" + searchTerm.toUpperCase() + "%";
+            query.setParameter("summary", searchWildcard);
+            query.setParameter("description", searchWildcard);
         }
     }
 }
