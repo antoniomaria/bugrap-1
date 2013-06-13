@@ -75,6 +75,9 @@ public class DummyDataService {
                 Report report = new Report();
                 report.setType(ReportType.values()[random.nextInt(ReportType.values().length)]);
                 report.setStatus(ReportStatus.values()[random.nextInt(ReportStatus.values().length)]);
+                if(report.getStatus().equals(ReportStatus.CLOSED)) {
+                    report.setResolution(ReportResolution.values()[random.nextInt(ReportResolution.values().length)]);
+                }
                 report.setSummary("This is bug #" + i);
                 report.setDescription("This is a detailed description. It is very long. This is a detailed description. It is very long. This is a detailed description. It is very long. This is a detailed description. It is very long.");
                 report.setProjectVersion(version);

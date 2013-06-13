@@ -40,7 +40,7 @@ public class ReportRepository extends AbstractRepository<Report> {
         }
 
         if (!resolutions.isEmpty()) {
-            criteria.add("r.resolution in (:resolutions)");
+            criteria.add("r.resolution in :resolutions");
         }
 
         if (!criteria.isEmpty()) {
@@ -63,7 +63,7 @@ public class ReportRepository extends AbstractRepository<Report> {
             query.setParameter("status", status);
         }
         if (!resolutions.isEmpty()) {
-            query.setParameter("resolutions", Joiner.on(", ").join(resolutions));
+            query.setParameter("resolutions", resolutions);
         }
 
         List<Report> resultList = query.getResultList();

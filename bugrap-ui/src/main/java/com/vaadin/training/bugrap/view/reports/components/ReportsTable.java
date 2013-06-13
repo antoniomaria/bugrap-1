@@ -32,6 +32,6 @@ public class ReportsTable extends Table {
 
     public void showReports(List<Report> reports) {
         setContainerDataSource(new BeanItemContainer<Report>(Report.class, reports));
-        setVisibleColumns(new Object[]{"priority", "type", "summary", "assigned", "timestamp", "projectVersion"});
+        setVisibleColumns(new Object[]{"priority", "type", "summary", "resolution", "assigned", "timestamp", "projectVersion"});
     }
 }
