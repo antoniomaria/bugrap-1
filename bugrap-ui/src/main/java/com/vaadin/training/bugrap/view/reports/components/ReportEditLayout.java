@@ -2,6 +2,7 @@ package com.vaadin.training.bugrap.view.reports.components;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.server.BrowserWindowOpener;
 import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.*;
@@ -21,6 +22,7 @@ public class ReportEditLayout extends VerticalLayout {
     private final Label reportSummaryLabel;
 
     private final Button updateButton;
+    private final Button newWindowButton;
 
     public void setPresenter(ReportsPresenter presenter) {
         this.presenter = presenter;
@@ -29,8 +31,22 @@ public class ReportEditLayout extends VerticalLayout {
     public ReportEditLayout() {
         setSizeFull();
 
+        HorizontalLayout headerLayout = new HorizontalLayout();
+        headerLayout.setSpacing(true);
+
+        newWindowButton = new Button("New window", new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                presenter.newWindowReportButtonClicked();
+            }
+        });
+
+        headerLayout.addComponent(newWindowButton);
+
         reportSummaryLabel = new Label();
-        addComponent(reportSummaryLabel);
+        headerLayout.addComponent(reportSummaryLabel);
+
+        addComponent(headerLayout);
 
         HorizontalLayout reportFormLayout = new HorizontalLayout();
 
@@ -115,7 +131,6 @@ public class ReportEditLayout extends VerticalLayout {
             versionCombobox.setItemCaption(projectVersion, projectVersion.getVersion());
         }
 
-        //todo: fix to load all users
         assignedCombobox.removeAllItems();
         for (User user : report.getProjectVersion().getProject().getParticipants()) {
             assignedCombobox.addItem(user);
@@ -131,5 +146,9 @@ public class ReportEditLayout extends VerticalLayout {
         descriptionTextArea.setValue(report.getDescription());
 
         updateButton.focus();
+    }
+
+    public void hideNewWindowButton() {
+        newWindowButton.setVisible(false);
     }
 }

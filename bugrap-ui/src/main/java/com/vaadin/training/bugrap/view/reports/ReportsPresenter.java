@@ -1,10 +1,13 @@
 package com.vaadin.training.bugrap.view.reports;
 
+import com.vaadin.server.BrowserWindowOpener;
 import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
 import com.vaadin.training.bugrap.service.ProjectService;
 import com.vaadin.training.bugrap.service.ReportService;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
+import com.vaadin.training.bugrap.view.reports.components.ReportPopupWindow;
+import com.vaadin.ui.UI;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -88,11 +91,22 @@ public class ReportsPresenter extends Presenter {
     }
 
     public void reportUpdated() {
-        reportService.save(currentReport);
+        currentReport = reportService.save(currentReport);
 
         List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
         getView().selectReport(currentReport);
+        getView().showSelectedReport(currentReport);
+    }
+
+    public void newWindowReportButtonClicked() {
+        ReportPopupWindow reportPopupWindow = new ReportPopupWindow();
+
+        reportPopupWindow.setPresenter(this);
+
+        UI.getCurrent().addWindow(reportPopupWindow);
+
+        reportPopupWindow.showReport(currentReport);
     }
 }
