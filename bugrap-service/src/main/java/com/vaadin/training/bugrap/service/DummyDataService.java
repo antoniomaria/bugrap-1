@@ -78,6 +78,7 @@ public class DummyDataService {
                 if(report.getStatus().equals(ReportStatus.CLOSED)) {
                     report.setResolution(ReportResolution.values()[random.nextInt(ReportResolution.values().length)]);
                 }
+                report.setPriority(ReportPriority.values()[random.nextInt(ReportPriority.values().length)]);
                 report.setSummary("This is bug #" + i);
                 report.setDescription("This is a detailed description. It is very long. This is a detailed description. It is very long. This is a detailed description. It is very long. This is a detailed description. It is very long.");
                 report.setProjectVersion(version);
