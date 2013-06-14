@@ -6,6 +6,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
+import org.vaadin.resetbuttonfortextfield.ResetButtonForTextField;
 
 public class ManageButtonsLayout extends HorizontalLayout {
     private ReportsPresenter presenter;
@@ -35,6 +36,7 @@ public class ManageButtonsLayout extends HorizontalLayout {
         setComponentAlignment(manageProjectButton, Alignment.BOTTOM_CENTER);
 
         TextField searchReportsField = new TextField("");
+        ResetButtonForTextField.extend(searchReportsField);
         searchReportsField.setInputPrompt("Search reports...");
         searchReportsField.setWidth("200px");
         searchReportsField.setImmediate(true);

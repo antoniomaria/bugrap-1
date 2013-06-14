@@ -117,7 +117,11 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>resetbuttonfortextfield</artifactId>
+            <version>1.0.5</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -175,7 +179,7 @@
                     </hostedWebapp>
                     <noServer>true</noServer>
                     <!-- Remove draftCompile when project is ready -->
-                    <draftCompile>true</draftCompile>
+                    <draftCompile>false</draftCompile>
                     <compileReport>true</compileReport>
                     <style>OBF</style>
                     <strict>true</strict>
