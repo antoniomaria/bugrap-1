@@ -1,17 +1,16 @@
 package com.vaadin.training.bugrap.service;
 
-import java.util.Date;
-import java.util.Random;
+import com.vaadin.training.bugrap.domain.entity.*;
+import com.vaadin.training.bugrap.domain.repository.ProjectRepository;
+import com.vaadin.training.bugrap.domain.repository.ReportRepository;
+import com.vaadin.training.bugrap.domain.repository.UserRepository;
 
 import javax.ejb.Singleton;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
-
-import com.vaadin.training.bugrap.domain.entity.*;
-import com.vaadin.training.bugrap.domain.repository.ProjectRepository;
-import com.vaadin.training.bugrap.domain.repository.ReportRepository;
-import com.vaadin.training.bugrap.domain.repository.UserRepository;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
@@ -31,6 +30,7 @@ public class DummyDataService {
     private User author;
     private User assigned;
     private Project project;
+    private User testUser;
 
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -54,8 +54,14 @@ public class DummyDataService {
         author.setName("Author User");
         author.setPassword("author");
 
+        testUser = new User();
+        testUser.setUsername("test");
+        testUser.setPassword("test");
+        testUser.setName("Test User");
+
         assigned = userRepository.save(assigned);
         author = userRepository.save(author);
+        testUser = userRepository.save(testUser);
     }
 
 
@@ -68,6 +74,7 @@ public class DummyDataService {
         project.addProjectVersion("0.0.4");
         project.addParticipant(assigned);
         project.addParticipant(author);
+        project.addParticipant(testUser);
         project.setManager(author);
 
         project = projectRepository.save(project);

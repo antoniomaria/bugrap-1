@@ -1,11 +1,10 @@
 package com.vaadin.training.bugrap.service;
 
-import javax.inject.Inject;
-
 import com.vaadin.training.bugrap.domain.entity.User;
 import com.vaadin.training.bugrap.domain.repository.UserRepository;
-import com.vaadin.training.bugrap.service.exceptions.InvalidPasswordException;
-import com.vaadin.training.bugrap.service.exceptions.NoSuchUserException;
+import com.vaadin.training.bugrap.service.exceptions.LoginException;
+
+import javax.inject.Inject;
 
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
@@ -17,15 +16,15 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User authenticate(String userName, String password) throws NoSuchUserException, InvalidPasswordException {
+    public User authenticate(String userName, String password) throws LoginException {
         User user = userRepository.findByUserName(userName);
 
         if (user == null) {
-            throw new NoSuchUserException();
+            throw new LoginException();
         }
 
         if (!user.getPassword().equals(password)) {
-            throw new InvalidPasswordException();
+            throw new LoginException();
         }
 
         return user;
