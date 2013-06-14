@@ -66,7 +66,7 @@ public class StatusReportLayout extends HorizontalLayout {
 
         projectVersionsSelect.removeAllItems();
 
-        if(versions.size() > 1) {
+        if (versions.size() > 1) {
             allVersions = new ProjectVersion();
             projectVersionsSelect.addItem(allVersions);
             projectVersionsSelect.setItemCaption(allVersions, "All versions");
@@ -78,7 +78,7 @@ public class StatusReportLayout extends HorizontalLayout {
             projectVersionsSelect.setItemCaption(version, version.getVersion());
         }
 
-        if(versions.size() == 1) {
+        if (versions.size() == 1) {
             projectVersionsSelect.setValue(versions.iterator().next());
         }
 
