@@ -4,6 +4,7 @@ import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.domain.repository.ProjectRepository;
 import com.vaadin.training.bugrap.domain.repository.ReportRepository;
 import com.vaadin.training.bugrap.domain.repository.UserRepository;
+import de.svenjacobs.loremipsum.LoremIpsum;
 
 import javax.ejb.Singleton;
 import javax.ejb.TransactionAttribute;
@@ -67,11 +68,12 @@ public class DummyDataService {
 
     private void createProject() {
         project = new Project();
-        project.setName("Project name that is rather long blah blah blah blah");
-        project.addProjectVersion("0.0.1");
-        project.addProjectVersion("0.0.2");
-        project.addProjectVersion("0.0.3");
-        project.addProjectVersion("0.0.4");
+        project.setName("Vaadin Bugrap");
+        project.addProjectVersion("1.0-SNAPSHOT");
+        project.addProjectVersion("1.0.0.beta1");
+        project.addProjectVersion("1.0.0.beta2");
+        project.addProjectVersion("1.0.0.rc");
+        project.addProjectVersion("1.0.0");
         project.addParticipant(assigned);
         project.addParticipant(author);
         project.addParticipant(testUser);
@@ -82,9 +84,10 @@ public class DummyDataService {
 
 
     public void generateReports() {
+        LoremIpsum loremIpsum = new LoremIpsum();
 
+        Random random = new Random(123);
         for (ProjectVersion version : project.getProjectVersions()) {
-            Random random = new Random(123);
 
             for (int i = 1; i <= random.nextInt(20) + 1; i++) {
                 Report report = new Report();
@@ -94,8 +97,8 @@ public class DummyDataService {
                     report.setResolution(ReportResolution.values()[random.nextInt(ReportResolution.values().length)]);
                 }
                 report.setPriority(ReportPriority.values()[random.nextInt(ReportPriority.values().length)]);
-                report.setSummary("This is bug #" + i);
-                report.setDescription("This is a detailed description. It is very long. This is a detailed description. It is very long. This is a detailed description. It is very long. This is a detailed description. It is very long.");
+                report.setSummary(loremIpsum.getWords(random.nextInt(15) + 2, random.nextInt(10)));
+                report.setDescription(loremIpsum.getParagraphs(4));
                 report.setProjectVersion(version);
                 report.setAssigned(assigned);
                 report.setAuthor(author);
