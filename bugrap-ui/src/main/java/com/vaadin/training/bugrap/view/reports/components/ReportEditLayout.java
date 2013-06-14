@@ -1,5 +1,6 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
+import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.event.ShortcutAction;
@@ -11,12 +12,13 @@ import com.vaadin.ui.*;
 public class ReportEditLayout extends VerticalLayout {
 
     private ReportsPresenter presenter;
-
     private FieldGroup fieldGroup;
 
     private final NativeSelect priorityCombobox;
+
     private final NativeSelect typeCombobox;
     private final NativeSelect statusCombobox;
+    private final NativeSelect resolutionCombobox;
     private final NativeSelect assignedCombobox;
     private final NativeSelect versionCombobox;
     private final TextArea descriptionTextArea;
@@ -83,17 +85,24 @@ public class ReportEditLayout extends VerticalLayout {
         typeCombobox.setNullSelectionAllowed(false);
         for (ReportType reportType : ReportType.values()) {
             typeCombobox.addItem(reportType);
-            typeCombobox.setItemCaption(reportType, reportType.toString());
         }
         reportFormLayout.addComponent(typeCombobox);
 
         statusCombobox = new NativeSelect("Status");
         statusCombobox.setNullSelectionAllowed(false);
+        statusCombobox.setImmediate(true);
         for (ReportStatus reportStatus : ReportStatus.values()) {
             statusCombobox.addItem(reportStatus);
-            statusCombobox.setItemCaption(reportStatus, reportStatus.toString());
         }
         reportFormLayout.addComponent(statusCombobox);
+
+        resolutionCombobox = new NativeSelect("Resolution");
+        for (ReportResolution resolution : ReportResolution.values()) {
+            resolutionCombobox.addItem(resolution);
+        }
+        resolutionCombobox.setVisible(false);
+        resolutionCombobox.setNullSelectionAllowed(false);
+        reportFormLayout.addComponent(resolutionCombobox);
 
         assignedCombobox = new NativeSelect("Assigned to");
         assignedCombobox.setNullSelectionAllowed(false);
@@ -146,6 +155,7 @@ public class ReportEditLayout extends VerticalLayout {
         fieldGroup.bind(priorityCombobox, "priority");
         fieldGroup.bind(typeCombobox, "type");
         fieldGroup.bind(statusCombobox, "status");
+        fieldGroup.bind(resolutionCombobox, "resolution");
         fieldGroup.bind(assignedCombobox, "assigned");
         fieldGroup.bind(versionCombobox, "projectVersion");
         fieldGroup.bind(descriptionTextArea, "description");
@@ -159,9 +169,27 @@ public class ReportEditLayout extends VerticalLayout {
         priorityCombobox.setValue(report.getPriority());
         typeCombobox.setValue(report.getType());
         statusCombobox.setValue(report.getStatus());
+        resolutionCombobox.setValue(report.getResolution());
         versionCombobox.setValue(report.getProjectVersion());
         assignedCombobox.setValue(report.getAssigned());
         descriptionTextArea.setValue(report.getDescription());
+
+        statusCombobox.addValueChangeListener(new Property.ValueChangeListener() {
+            @Override
+            public void valueChange(Property.ValueChangeEvent event) {
+                if(event.getProperty().getValue().equals(ReportStatus.CLOSED)) {
+                    resolutionCombobox.setVisible(true);
+                    resolutionCombobox.setValue(ReportResolution.FIXED);
+                } else {
+                    resolutionCombobox.setVisible(false);
+                    resolutionCombobox.setValue(null);
+                }
+            }
+        });
+
+        if(report.getStatus().equals(ReportStatus.CLOSED)) {
+            resolutionCombobox.setVisible(true);
+        }
 
         if(report.isPersistent()) {
             updateButton.setCaption("Update");
