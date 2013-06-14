@@ -1,12 +1,11 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
 import com.vaadin.data.Property;
+import com.vaadin.training.bugrap.client.components.distbar.Segment;
+import com.vaadin.training.bugrap.components.distbar.DistributionBar;
 import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.NativeSelect;
+import com.vaadin.ui.*;
 
 import java.util.List;
 
@@ -22,6 +21,8 @@ public class StatusReportLayout extends HorizontalLayout {
     }
 
     public StatusReportLayout() {
+        setWidth("100%");
+
         Label reportsForLabel = new Label("Reports for");
         addComponent(reportsForLabel);
         setComponentAlignment(reportsForLabel, Alignment.MIDDLE_CENTER);
@@ -42,6 +43,20 @@ public class StatusReportLayout extends HorizontalLayout {
         };
 
         addComponent(projectVersionsSelect);
+
+        DistributionBar distributionBar = new DistributionBar();
+        distributionBar.addSegmentClickListener(new DistributionBar.SegmentClickListener() {
+            @Override
+            public void segmentClicked(Segment segment) {
+                Notification.show("Segment " + segment.name() + " was clicked!");
+            }
+        });
+        distributionBar.setClosed(50);
+        distributionBar.setInProgress(30);
+        distributionBar.setUnassigned(1500);
+        distributionBar.setWidth("100%");
+        addComponent(distributionBar);
+        setExpandRatio(distributionBar, 1.0f);
 
         setSpacing(true);
     }

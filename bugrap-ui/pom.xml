@@ -66,14 +66,12 @@
 		  compilation classpath by vaadin-maven-plugin so normally there is no need for an
 		  explicit dependency.
 		-->
-        <!--
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-client-compiler</artifactId>
 			<version>${vaadin.version}</version>
-			<scope>provided</scope>
 		</dependency>
-		-->
+
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-client</artifactId>
@@ -177,10 +175,11 @@
                     </hostedWebapp>
                     <noServer>true</noServer>
                     <!-- Remove draftCompile when project is ready -->
-                    <draftCompile>false</draftCompile>
+                    <draftCompile>true</draftCompile>
                     <compileReport>true</compileReport>
                     <style>OBF</style>
                     <strict>true</strict>
+                    <localWorkers>4</localWorkers>
                     <runTarget>http://localhost:8080/</runTarget>
                 </configuration>
                 <executions>
