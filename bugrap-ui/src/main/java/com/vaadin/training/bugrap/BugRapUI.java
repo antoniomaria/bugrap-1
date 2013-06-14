@@ -60,6 +60,7 @@ public class BugRapUI extends UI {
 
     protected void loginEventListener(@Observes LoginEvent loginEvent) {
         VaadinSession.getCurrent().setAttribute(User.class, loginEvent.getUser());
+
         initNavigation();
     }
 
