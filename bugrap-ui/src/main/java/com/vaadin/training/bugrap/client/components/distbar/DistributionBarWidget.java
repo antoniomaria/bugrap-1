@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Label;
 
 public class DistributionBarWidget extends FlowPanel {
 
+    public static final int MAX_LABEL_WIDTH_PERCENTS = 95;
     private final Label closedLabel;
     private final Label inProgressLabel;
     private final Label unassignedLabel;
@@ -77,8 +78,11 @@ public class DistributionBarWidget extends FlowPanel {
 
         if (totalCalculatedWidth > availableWidth) {
             closedLabel.getElement().getStyle().setProperty("minWidth", UNIT_WIDTH, Style.Unit.PX);
+            closedLabel.getElement().getStyle().setProperty("maxWidth", MAX_LABEL_WIDTH_PERCENTS, Style.Unit.PCT);
             inProgressLabel.getElement().getStyle().setProperty("minWidth", UNIT_WIDTH, Style.Unit.PX);
+            inProgressLabel.getElement().getStyle().setProperty("maxWidth", MAX_LABEL_WIDTH_PERCENTS, Style.Unit.PCT);
             unassignedLabel.getElement().getStyle().setProperty("minWidth", UNIT_WIDTH, Style.Unit.PX);
+            unassignedLabel.getElement().getStyle().setProperty("maxWidth", MAX_LABEL_WIDTH_PERCENTS, Style.Unit.PCT);
 
             closedLabel.getElement().getStyle().setWidth(100 * closedWidth / (double) totalCalculatedWidth, Style.Unit.PCT);
             inProgressLabel.getElement().getStyle().setWidth(100 * inProgressWidth / (double) totalCalculatedWidth, Style.Unit.PCT);

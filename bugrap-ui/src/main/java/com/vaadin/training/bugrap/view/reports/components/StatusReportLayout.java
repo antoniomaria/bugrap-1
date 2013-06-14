@@ -51,8 +51,8 @@ public class StatusReportLayout extends HorizontalLayout {
                 Notification.show("Segment " + segment.name() + " was clicked!");
             }
         });
-        distributionBar.setClosed(50);
-        distributionBar.setInProgress(30);
+        distributionBar.setClosed(5);
+        distributionBar.setInProgress(3);
         distributionBar.setUnassigned(1500);
         distributionBar.setWidth("100%");
         addComponent(distributionBar);
