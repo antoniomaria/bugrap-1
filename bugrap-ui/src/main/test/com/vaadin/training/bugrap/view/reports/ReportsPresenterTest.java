@@ -1,6 +1,7 @@
 package com.vaadin.training.bugrap.view.reports;
 
 import com.vaadin.training.bugrap.domain.entity.Project;
+import com.vaadin.training.bugrap.domain.entity.ProjectVersion;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
 import com.vaadin.training.bugrap.service.ProjectService;
@@ -13,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -38,6 +40,7 @@ public class ReportsPresenterTest {
         presenter.setView(view);
         presenter.reportService = reportService;
         presenter.projectService = projectService;
+        presenter.query = new ReportQuery();
     }
 
     @Test
@@ -51,6 +54,19 @@ public class ReportsPresenterTest {
 
         verify(view).showProject(project);
         verify(view).showReports(reports);
+    }
 
+    @Test
+    public void testProjectVersionChanged() {
+        ArrayList<Report> reports = new ArrayList<Report>();
+        when(reportService.getReports(presenter.query)).thenReturn(reports);
+
+        ProjectVersion projectVersion = new ProjectVersion();
+        String version = "new projectVersion";
+        projectVersion.setVersion(version);
+        presenter.projectVersionChanged(projectVersion);
+
+        verify(view).showReports(reports);
+        assertEquals(presenter.query.getVersion().getVersion(), version);
     }
 }

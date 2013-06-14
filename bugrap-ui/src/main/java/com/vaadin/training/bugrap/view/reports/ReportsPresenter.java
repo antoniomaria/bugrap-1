@@ -18,7 +18,7 @@ public class ReportsPresenter extends Presenter {
 
     private User currentUser;
 
-    private ReportQuery query = new ReportQuery();
+    ReportQuery query = new ReportQuery();
 
     @Inject
     ReportService reportService;
