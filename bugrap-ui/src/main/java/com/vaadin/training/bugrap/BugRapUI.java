@@ -55,7 +55,11 @@ public class BugRapUI extends UI {
 
         navigator.addProvider(cdiViewProvider);
 
-        navigator.navigateTo(ReportsOverviewView.NAME);
+        if(navigator.getState() == null || navigator.getState().isEmpty()) {
+            navigator.navigateTo(ReportsOverviewView.NAME);
+        } else {
+            navigator.navigateTo(navigator.getState());
+        }
     }
 
     protected void loginEventListener(@Observes LoginEvent loginEvent) {

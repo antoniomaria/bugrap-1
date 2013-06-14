@@ -4,6 +4,7 @@ import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 public class LoginViewImpl extends CssLayout implements LoginView {
@@ -39,8 +40,18 @@ public class LoginViewImpl extends CssLayout implements LoginView {
         addComponent(formLayout);
     }
 
+    @PostConstruct
+    public void init() {
+        presenter.setView(this);
+    }
+
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         presenter.viewEntered(event.getParameters());
+    }
+
+    @Override
+    public void showLoginError(String message) {
+        Notification.show(message, Notification.Type.WARNING_MESSAGE);
     }
 }
