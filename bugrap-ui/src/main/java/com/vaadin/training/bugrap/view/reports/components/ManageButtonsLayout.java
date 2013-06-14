@@ -36,7 +36,7 @@ public class ManageButtonsLayout extends HorizontalLayout {
         setComponentAlignment(manageProjectButton, Alignment.BOTTOM_CENTER);
 
         TextField searchReportsField = new TextField("");
-        searchReportsField.setValue("Search reports...");
+        searchReportsField.setInputPrompt("Search reports...");
         searchReportsField.setWidth("200px");
         searchReportsField.setImmediate(true);
         searchReportsField.addValueChangeListener(new Property.ValueChangeListener() {
