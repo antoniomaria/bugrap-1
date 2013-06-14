@@ -20,16 +20,20 @@ public class ReportsPresenterViewIntegrationTest {
 
     private ReportService reportService;
     private ProjectService projectService;
+    private ReportsPresenter reportsPresenter;
 
     @Before
     public void setUp() throws Exception {
-        ReportsPresenter reportsPresenter = new ReportsPresenter();
+        reportsPresenter = new ReportsPresenter();
         ReportsOverviewViewImpl view = new ReportsOverviewViewImpl();
         view.reportsPresenter = reportsPresenter;
         reportsPresenter.setView(view);
 
         reportService = mock(ReportService.class);
         projectService = mock(ProjectService.class);
+
+        reportsPresenter.projectService = projectService;
+        reportsPresenter.reportService = reportService;
     }
 
     @Test
@@ -40,5 +44,7 @@ public class ReportsPresenterViewIntegrationTest {
         when(projectService.findProject()).thenReturn(project);
         when(reportService.getReports(any(ReportQuery.class))).thenReturn(new ArrayList<Report>());
         verifyNoMoreInteractions(reportService);
+
+        reportsPresenter.viewEntered("");
     }
 }
