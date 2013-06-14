@@ -50,6 +50,7 @@ public class ReportEditLayout extends VerticalLayout {
         reportSummaryLabel = new Label();
         reportSummaryLabel.setWidth("100%");
         headerLayout.addComponent(reportSummaryLabel);
+        headerLayout.setComponentAlignment(reportSummaryLabel, Alignment.MIDDLE_CENTER);
         headerLayout.setExpandRatio(reportSummaryLabel, 1.0f);
 
         reportSummaryField = new TextField();
