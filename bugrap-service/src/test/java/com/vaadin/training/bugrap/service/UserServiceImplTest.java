@@ -1,15 +1,13 @@
 package com.vaadin.training.bugrap.service;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
+import com.vaadin.training.bugrap.domain.entity.User;
+import com.vaadin.training.bugrap.domain.repository.UserRepository;
+import com.vaadin.training.bugrap.service.exceptions.LoginException;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.vaadin.training.bugrap.domain.entity.User;
-import com.vaadin.training.bugrap.domain.repository.UserRepository;
-import com.vaadin.training.bugrap.service.exceptions.InvalidPasswordException;
-import com.vaadin.training.bugrap.service.exceptions.NoSuchUserException;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
@@ -40,7 +38,7 @@ public class UserServiceImplTest {
     }
 
 
-    @Test(expected = InvalidPasswordException.class)
+    @Test(expected = LoginException.class)
     public void testIncorrectPassword() throws Exception {
         User user = getUser();
         user.setPassword("wrong");
@@ -52,7 +50,7 @@ public class UserServiceImplTest {
     }
 
 
-    @Test(expected = NoSuchUserException.class)
+    @Test(expected = LoginException.class)
     public void testNonExistantUser() throws Exception {
         when(userRepository.findByUserName(username)).thenReturn(null);
 
