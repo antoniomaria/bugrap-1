@@ -3,12 +3,17 @@ package com.vaadin.training.bugrap.client.components.distbar;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 
 public class DistributionBarWidget extends FlowPanel {
 
     public static final int MAX_LABEL_WIDTH_PERCENTS = 95;
+    public static final int FULL_WIDTH_PERCENTAGE = 100;
     private final Label closedLabel;
     private final Label inProgressLabel;
     private final Label unassignedLabel;
@@ -17,6 +22,7 @@ public class DistributionBarWidget extends FlowPanel {
     private int unassigned = 0;
 
     public static final int UNIT_WIDTH = 30;
+    private HandlerRegistration handlerRegistration;
 
     public DistributionBarWidget() {
         setStyleName("distribution-bar");
@@ -38,6 +44,26 @@ public class DistributionBarWidget extends FlowPanel {
         unassignedLabel = createLabel();
         unassignedLabel.addStyleName("unassigned");
         add(unassignedLabel);
+
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+
+        handlerRegistration = Window.addResizeHandler(new ResizeHandler() {
+            @Override
+            public void onResize(ResizeEvent event) {
+                updateWidth();
+            }
+        });
+    }
+
+    @Override
+    protected void onDetach() {
+        super.onDetach();
+
+        handlerRegistration.removeHandler();
     }
 
     private Label createLabel() {
@@ -77,16 +103,18 @@ public class DistributionBarWidget extends FlowPanel {
         int totalCalculatedWidth = closedWidth + inProgressWidth + unassignedWidth;
 
         if (totalCalculatedWidth > availableWidth) {
-            closedLabel.getElement().getStyle().setProperty("minWidth", UNIT_WIDTH, Style.Unit.PX);
-            closedLabel.getElement().getStyle().setProperty("maxWidth", MAX_LABEL_WIDTH_PERCENTS, Style.Unit.PCT);
-            inProgressLabel.getElement().getStyle().setProperty("minWidth", UNIT_WIDTH, Style.Unit.PX);
-            inProgressLabel.getElement().getStyle().setProperty("maxWidth", MAX_LABEL_WIDTH_PERCENTS, Style.Unit.PCT);
-            unassignedLabel.getElement().getStyle().setProperty("minWidth", UNIT_WIDTH, Style.Unit.PX);
-            unassignedLabel.getElement().getStyle().setProperty("maxWidth", MAX_LABEL_WIDTH_PERCENTS, Style.Unit.PCT);
+            double unitRatio = (double )FULL_WIDTH_PERCENTAGE * UNIT_WIDTH / availableWidth;
 
-            closedLabel.getElement().getStyle().setWidth(100 * closedWidth / (double) totalCalculatedWidth, Style.Unit.PCT);
-            inProgressLabel.getElement().getStyle().setWidth(100 * inProgressWidth / (double) totalCalculatedWidth, Style.Unit.PCT);
-            unassignedLabel.getElement().getStyle().setWidth(100 * unassignedWidth / (double) totalCalculatedWidth, Style.Unit.PCT);
+            closedLabel.getElement().getStyle().setProperty("minWidth", unitRatio, Style.Unit.PCT);
+            closedLabel.getElement().getStyle().setProperty("maxWidth", FULL_WIDTH_PERCENTAGE - 2 * unitRatio, Style.Unit.PCT);
+            inProgressLabel.getElement().getStyle().setProperty("minWidth", unitRatio, Style.Unit.PCT);
+            inProgressLabel.getElement().getStyle().setProperty("maxWidth", FULL_WIDTH_PERCENTAGE - 2 * unitRatio, Style.Unit.PCT);
+            unassignedLabel.getElement().getStyle().setProperty("minWidth", unitRatio, Style.Unit.PCT);
+            unassignedLabel.getElement().getStyle().setProperty("maxWidth", FULL_WIDTH_PERCENTAGE - 2 * unitRatio, Style.Unit.PCT);
+
+            closedLabel.getElement().getStyle().setWidth(FULL_WIDTH_PERCENTAGE * closedWidth / (double) totalCalculatedWidth, Style.Unit.PCT);
+            inProgressLabel.getElement().getStyle().setWidth(FULL_WIDTH_PERCENTAGE * inProgressWidth / (double) totalCalculatedWidth, Style.Unit.PCT);
+            unassignedLabel.getElement().getStyle().setWidth(FULL_WIDTH_PERCENTAGE * unassignedWidth / (double) totalCalculatedWidth, Style.Unit.PCT);
         } else {
             closedLabel.setWidth(closedWidth + "px");
             inProgressLabel.setWidth(inProgressWidth + "px");

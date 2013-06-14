@@ -27,6 +27,7 @@ public class HeaderLayout extends HorizontalLayout {
         setExpandRatio(projectNameLabel, 1.0f);
 
         userLabel = new Label();
+        userLabel.setWidth("100px");
         addComponent(userLabel);
 
         logoutButton = new Button("Logout", new Button.ClickListener() {
