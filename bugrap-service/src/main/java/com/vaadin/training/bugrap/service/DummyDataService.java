@@ -1,16 +1,17 @@
 package com.vaadin.training.bugrap.service;
 
-import com.vaadin.training.bugrap.domain.entity.*;
-import com.vaadin.training.bugrap.domain.repository.ProjectRepository;
-import com.vaadin.training.bugrap.domain.repository.ReportRepository;
-import com.vaadin.training.bugrap.domain.repository.UserRepository;
+import java.util.Date;
+import java.util.Random;
 
 import javax.ejb.Singleton;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
-import java.util.Date;
-import java.util.Random;
+
+import com.vaadin.training.bugrap.domain.entity.*;
+import com.vaadin.training.bugrap.domain.repository.ProjectRepository;
+import com.vaadin.training.bugrap.domain.repository.ReportRepository;
+import com.vaadin.training.bugrap.domain.repository.UserRepository;
 
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
@@ -31,6 +32,7 @@ public class DummyDataService {
     private User assigned;
     private Project project;
 
+
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void initDB() {
         if (projectRepository.findAll().isEmpty()) {
@@ -40,18 +42,22 @@ public class DummyDataService {
         }
     }
 
+
     private void createUsers() {
         assigned = new User();
         assigned.setUsername("assigned");
         assigned.setName("Assigned User");
+        assigned.setPassword("assigned");
 
         author = new User();
         author.setUsername("author");
         author.setName("Author User");
+        author.setPassword("author");
 
         assigned = userRepository.save(assigned);
         author = userRepository.save(author);
     }
+
 
     private void createProject() {
         project = new Project();
@@ -62,9 +68,11 @@ public class DummyDataService {
         project.addProjectVersion("0.0.4");
         project.addParticipant(assigned);
         project.addParticipant(author);
+        project.setManager(author);
 
         project = projectRepository.save(project);
     }
+
 
     public void generateReports() {
 
@@ -75,7 +83,7 @@ public class DummyDataService {
                 Report report = new Report();
                 report.setType(ReportType.values()[random.nextInt(ReportType.values().length)]);
                 report.setStatus(ReportStatus.values()[random.nextInt(ReportStatus.values().length)]);
-                if(report.getStatus().equals(ReportStatus.CLOSED)) {
+                if (report.getStatus().equals(ReportStatus.CLOSED)) {
                     report.setResolution(ReportResolution.values()[random.nextInt(ReportResolution.values().length)]);
                 }
                 report.setPriority(ReportPriority.values()[random.nextInt(ReportPriority.values().length)]);
