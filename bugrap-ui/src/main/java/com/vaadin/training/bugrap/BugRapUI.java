@@ -5,12 +5,14 @@ import com.vaadin.annotations.Widgetset;
 import com.vaadin.cdi.CDIUI;
 import com.vaadin.cdi.CDIViewProvider;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.training.bugrap.domain.entity.User;
 import com.vaadin.training.bugrap.service.DummyDataService;
 import com.vaadin.training.bugrap.view.login.LoginEvent;
 import com.vaadin.training.bugrap.view.login.LoginView;
+import com.vaadin.training.bugrap.view.login.LogoutEvent;
 import com.vaadin.training.bugrap.view.reports.ReportsOverviewView;
 import com.vaadin.ui.UI;
 
@@ -66,6 +68,12 @@ public class BugRapUI extends UI {
         VaadinSession.getCurrent().setAttribute(User.class, loginEvent.getUser());
 
         initNavigation();
+    }
+
+    protected void logoutEventListener(@Observes LogoutEvent logoutEvent) {
+        VaadinSession.getCurrent().close();
+
+        Page.getCurrent().setLocation("");
     }
 
 }

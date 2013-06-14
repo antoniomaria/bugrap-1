@@ -22,4 +22,6 @@ public interface ReportsOverviewView extends View {
     void showNewReportPopup(Report currentReport, Project project);
 
     void hidePopupWindow();
+
+    void updateUsername(String name);
 }

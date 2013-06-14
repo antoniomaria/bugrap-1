@@ -1,6 +1,7 @@
 package com.vaadin.training.bugrap.view.login;
 
 import com.vaadin.cdi.CDIView;
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
@@ -21,6 +22,7 @@ public class LoginViewImpl extends CssLayout implements LoginView {
         FormLayout formLayout = new FormLayout();
 
         usernameField = new TextField("Username");
+        usernameField.focus();
         formLayout.addComponent(usernameField);
 
         passwordField = new PasswordField("Password");
@@ -32,6 +34,7 @@ public class LoginViewImpl extends CssLayout implements LoginView {
                 presenter.loginAttempt(usernameField.getValue(), passwordField.getValue());
             }
         });
+        loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         formLayout.addComponent(loginButton);
 
         formLayout.setSpacing(true);

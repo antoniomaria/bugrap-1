@@ -5,10 +5,13 @@ import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
 import com.vaadin.training.bugrap.service.ProjectService;
 import com.vaadin.training.bugrap.service.ReportService;
+import com.vaadin.training.bugrap.util.CurrentUser;
+import com.vaadin.training.bugrap.view.login.LogoutEvent;
 import com.vaadin.training.bugrap.view.mvp.Presenter;
 import com.vaadin.training.bugrap.view.reports.components.ReportPopupWindow;
 import com.vaadin.ui.UI;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,16 +29,20 @@ public class ReportsPresenter extends Presenter {
     @Inject
     ProjectService projectService;
 
+    @Inject
+    Event<LogoutEvent> logoutEvent;
+
     private Report currentReport;
 
     @Override
     public void viewEntered(String params) {
         Project project = projectService.findProject();
 
-        currentUser = new User();
+        currentUser = CurrentUser.get();
 
         getView().showProject(project);
         getView().showReports(reportService.getReports(query));
+        getView().updateUsername(currentUser.getName());
     }
 
     public void projectVersionChanged(ProjectVersion version) {
@@ -127,5 +134,9 @@ public class ReportsPresenter extends Presenter {
         List<Report> reports = reportService.getReports(query);
 
         getView().showReports(reports);
+    }
+
+    public void logoutButtonClicked() {
+        logoutEvent.fire(new LogoutEvent());
     }
 }

@@ -2,6 +2,8 @@ package com.vaadin.training.bugrap.view.reports;
 
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Page;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
@@ -74,6 +76,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         reportsTable.setPresenter(reportsPresenter);
         reportEditLayout.setPresenter(reportsPresenter);
         manageButtonsLayout.setPresenter(reportsPresenter);
+        headerLayout.setPresenter(reportsPresenter);
     }
 
     @Override
@@ -138,6 +141,11 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
         reportPopupWindow = initReportPopup();
 
         reportPopupWindow.showNewReport(report, project);
+    }
+
+    @Override
+    public void updateUsername(String name) {
+        headerLayout.updateUserName(name);
     }
 
     private void showReportEditPanel() {
