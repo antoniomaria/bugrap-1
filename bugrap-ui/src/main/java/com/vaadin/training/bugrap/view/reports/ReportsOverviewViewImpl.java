@@ -116,7 +116,7 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     }
 
     private ReportPopupWindow initReportPopup() {
-        ReportPopupWindow reportPopupWindow = new ReportPopupWindow("Edit report");
+        ReportPopupWindow reportPopupWindow = new ReportPopupWindow();
 
         reportPopupWindow.setPresenter(reportsPresenter);
 

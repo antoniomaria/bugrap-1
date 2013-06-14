@@ -19,14 +19,13 @@ public class ReportPopupWindow extends Window {
 
     private final ReportEditLayout reportEditLayout;
 
-    public ReportPopupWindow(String caption) {
+    public ReportPopupWindow() {
         setWidth("90%");
         setHeight("90%");
         center();
 
         addStyleName(Reindeer.WINDOW_LIGHT);
-
-        setCaption(caption);
+        setModal(true);
 
         reportEditLayout = new ReportEditLayout();
 
@@ -36,6 +35,12 @@ public class ReportPopupWindow extends Window {
     }
 
     public void showReport(Report report) {
+        if (report.isPersistent()) {
+            setCaption("Edit a report");
+        } else {
+            setCaption("Create a report");
+        }
+
         reportEditLayout.showReport(report);
         reportEditLayout.hideNewWindowButton();
         reportEditLayout.enableEditableSummary();

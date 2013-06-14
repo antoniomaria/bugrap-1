@@ -103,7 +103,8 @@ public class ReportEditLayout extends VerticalLayout {
         versionCombobox.setNullSelectionAllowed(false);
         reportFormLayout.addComponent(versionCombobox);
 
-        updateButton = new Button("Update", new Button.ClickListener() {
+        updateButton = new Button();
+        updateButton.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 try {
@@ -161,6 +162,12 @@ public class ReportEditLayout extends VerticalLayout {
         versionCombobox.setValue(report.getProjectVersion());
         assignedCombobox.setValue(report.getAssigned());
         descriptionTextArea.setValue(report.getDescription());
+
+        if(report.isPersistent()) {
+            updateButton.setCaption("Update");
+        } else {
+            updateButton.setCaption("Create");
+        }
 
         updateButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         updateButton.focus();

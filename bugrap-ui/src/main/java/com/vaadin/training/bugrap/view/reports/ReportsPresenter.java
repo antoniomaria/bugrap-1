@@ -111,6 +111,7 @@ public class ReportsPresenter extends Presenter {
 
         currentReport.setTimestamp(new Date());
 
+
         Project project = projectService.findProject();
 
         getView().showNewReportPopup(currentReport, project);
