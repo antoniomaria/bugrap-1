@@ -109,10 +109,14 @@ public class ReportsPresenter extends Presenter {
     public void reportBugButtonClicked() {
         currentReport = new Report();
 
-        currentReport.setTimestamp(new Date());
-
-
         Project project = projectService.findProject();
+
+        currentReport.setTimestamp(new Date());
+        currentReport.setPriority(ReportPriority.NORMAL);
+        currentReport.setType(ReportType.BUG);
+        currentReport.setAssigned(project.getParticipants().iterator().next());
+        currentReport.setStatus(ReportStatus.OPEN);
+        currentReport.setProjectVersion(project.getProjectVersions().get(project.getProjectVersions().size() - 1));
 
         getView().showNewReportPopup(currentReport, project);
     }

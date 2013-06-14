@@ -47,8 +47,8 @@ public class ReportPopupWindow extends Window {
     }
 
     public void showNewReport(Report report, Project project) {
-        showReport(report);
-
         reportEditLayout.populateDataFromProject(project);
+
+        showReport(report);
     }
 }
