@@ -1,7 +1,6 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
 import com.vaadin.data.Property;
-import com.vaadin.event.ShortcutListener;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -42,7 +41,7 @@ public class ManageButtonsLayout extends HorizontalLayout {
         searchReportsField.addValueChangeListener(new Property.ValueChangeListener() {
             @Override
             public void valueChange(Property.ValueChangeEvent event) {
-                presenter.searchReports((String)event.getProperty().getValue());
+                presenter.searchReports((String) event.getProperty().getValue());
             }
         });
         addComponent(searchReportsField);

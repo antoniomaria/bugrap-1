@@ -2,7 +2,7 @@ package com.vaadin.training.bugrap.domain.repository;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import com.vaadin.training.bugrap.domain.entity.*;
+import com.vaadin.training.bugrap.domain.entity.Report;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -11,7 +11,6 @@ import java.util.List;
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
 public class ReportRepository extends AbstractRepository<Report> {
-
 
 
     @Override

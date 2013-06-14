@@ -4,7 +4,6 @@ import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.server.BrowserWindowOpener;
 import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.*;
@@ -177,7 +176,7 @@ public class ReportEditLayout extends VerticalLayout {
         statusCombobox.addValueChangeListener(new Property.ValueChangeListener() {
             @Override
             public void valueChange(Property.ValueChangeEvent event) {
-                if(event.getProperty().getValue().equals(ReportStatus.CLOSED)) {
+                if (event.getProperty().getValue().equals(ReportStatus.CLOSED)) {
                     resolutionCombobox.setVisible(true);
                     resolutionCombobox.setValue(ReportResolution.FIXED);
                 } else {
@@ -187,11 +186,11 @@ public class ReportEditLayout extends VerticalLayout {
             }
         });
 
-        if(report.getStatus().equals(ReportStatus.CLOSED)) {
+        if (report.getStatus().equals(ReportStatus.CLOSED)) {
             resolutionCombobox.setVisible(true);
         }
 
-        if(report.isPersistent()) {
+        if (report.isPersistent()) {
             updateButton.setCaption("Update");
         } else {
             updateButton.setCaption("Create");

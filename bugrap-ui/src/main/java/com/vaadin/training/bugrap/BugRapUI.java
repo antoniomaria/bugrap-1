@@ -43,7 +43,7 @@ public class BugRapUI extends UI {
 
         User user = VaadinSession.getCurrent().getAttribute(User.class);
 
-        if(user == null) {
+        if (user == null) {
             setContent(loginViewInstance.get());
         } else {
             initNavigation();

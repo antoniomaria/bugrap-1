@@ -1,6 +1,6 @@
 package com.vaadin.training.bugrap.domain.repository;
 
-import java.util.List;
+import com.vaadin.training.bugrap.domain.entity.AbstractEntity;
 
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -10,8 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-
-import com.vaadin.training.bugrap.domain.entity.AbstractEntity;
+import java.util.List;
 
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
@@ -44,8 +43,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> {
         E saved;
         if (entity.isPersistent()) {
             saved = em.merge(entity);
-        }
-        else {
+        } else {
             em.persist(entity);
             saved = entity;
         }
@@ -59,8 +57,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> {
 
         try {
             foundEntity = query.getSingleResult();
-        }
-        catch (NoResultException derp) {
+        } catch (NoResultException derp) {
             // herp derp jpa derp
         }
 
