@@ -115,4 +115,12 @@ public class ReportsPresenter extends Presenter {
 
         getView().showNewReportPopup(currentReport, project);
     }
+
+    public void searchReports(String value) {
+        query.setSearchTerm(value);
+
+        List<Report> reports = reportService.getReports(query);
+
+        getView().showReports(reports);
+    }
 }

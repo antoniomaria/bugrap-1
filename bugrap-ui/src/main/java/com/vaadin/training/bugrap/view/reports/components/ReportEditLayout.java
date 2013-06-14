@@ -114,7 +114,6 @@ public class ReportEditLayout extends VerticalLayout {
                 }
             }
         });
-        updateButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
         reportFormLayout.addComponent(updateButton);
         reportFormLayout.setComponentAlignment(updateButton, Alignment.BOTTOM_CENTER);
@@ -162,6 +161,7 @@ public class ReportEditLayout extends VerticalLayout {
         assignedCombobox.setValue(report.getAssigned());
         descriptionTextArea.setValue(report.getDescription());
 
+        updateButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         updateButton.focus();
     }
 
