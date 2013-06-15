@@ -19,7 +19,7 @@ public class Comment extends AbstractEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private Report report;
 
     public User getAuthor() {

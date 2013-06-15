@@ -1,5 +1,6 @@
 package com.vaadin.training.bugrap.service;
 
+import com.vaadin.training.bugrap.domain.entity.Comment;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
 import com.vaadin.training.bugrap.domain.repository.ReportRepository;
@@ -34,5 +35,10 @@ public class ReportServiceImpl implements ReportService {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Report save(Report report) {
         return reportRepository.save(report);
+    }
+
+    @Override
+    public List<Comment> getComments(Report report) {
+        return reportRepository.findComments(report);
     }
 }

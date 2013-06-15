@@ -3,6 +3,7 @@ package com.vaadin.training.bugrap.view.reports;
 import com.vaadin.server.BrowserWindowOpener;
 import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
+import com.vaadin.training.bugrap.service.CommentService;
 import com.vaadin.training.bugrap.service.ProjectService;
 import com.vaadin.training.bugrap.service.ReportService;
 import com.vaadin.training.bugrap.util.CurrentUser;
@@ -28,6 +29,9 @@ public class ReportsPresenter extends Presenter {
 
     @Inject
     ProjectService projectService;
+
+    @Inject
+    CommentService commentService;
 
     @Inject
     Event<LogoutEvent> logoutEvent;
@@ -95,7 +99,9 @@ public class ReportsPresenter extends Presenter {
     public void reportSelected(Report report) {
         currentReport = report;
 
-        getView().showSelectedReport(report);
+        List<Comment> comments = reportService.getComments(report);
+
+        getView().showSelectedReport(report, comments);
     }
 
     public void reportUpdated() {
@@ -103,14 +109,16 @@ public class ReportsPresenter extends Presenter {
 
         List<Report> reports = reportService.getReports(query);
 
+        List<Comment> comments = reportService.getComments(currentReport);
+
         getView().showReports(reports);
         getView().selectReport(currentReport);
-        getView().showSelectedReport(currentReport);
+        getView().showSelectedReport(currentReport, comments);
         getView().hidePopupWindow();
     }
 
     public void newWindowReportButtonClicked() {
-        getView().showReportPopup(currentReport);
+        getView().showReportPopup(currentReport, new ArrayList<Comment>());
     }
 
     public void reportBugButtonClicked() {
@@ -138,5 +146,21 @@ public class ReportsPresenter extends Presenter {
 
     public void logoutButtonClicked() {
         logoutEvent.fire(new LogoutEvent());
+    }
+
+    public void commentAdded(String message) {
+        Comment comment = new Comment();
+
+        comment.setTimestamp(new Date());
+        comment.setAuthor(currentUser);
+        comment.setComment(message);
+        comment.setReport(currentReport);
+        comment.setType(CommentType.COMMENT);
+
+        comment = commentService.save(comment);
+
+        List<Comment> comments = reportService.getComments(currentReport);
+
+        getView().updateComments(comments);
     }
 }

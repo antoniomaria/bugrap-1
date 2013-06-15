@@ -8,6 +8,8 @@ import com.vaadin.training.bugrap.domain.entity.*;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.*;
 
+import java.util.List;
+
 public class ReportEditLayout extends VerticalLayout {
 
     private ReportsPresenter presenter;
@@ -26,14 +28,18 @@ public class ReportEditLayout extends VerticalLayout {
     private final Button updateButton;
     private final Button newWindowButton;
     private final TextField reportSummaryField;
+    private final CommentsLayout commentsLayout;
 
     public void setPresenter(ReportsPresenter presenter) {
         this.presenter = presenter;
+
+        commentsLayout.setPresenter(presenter);
     }
 
     public ReportEditLayout() {
         setSizeFull();
         setMargin(true);
+        setSpacing(true);
 
         HorizontalLayout headerLayout = new HorizontalLayout();
         headerLayout.setSpacing(true);
@@ -140,15 +146,17 @@ public class ReportEditLayout extends VerticalLayout {
         addComponent(reportFormLayout);
 
         descriptionTextArea = new TextArea();
-        descriptionTextArea.setSizeFull();
+        descriptionTextArea.setWidth("100%");
+        descriptionTextArea.setHeight("300px");
         descriptionTextArea.setNullRepresentation("");
         addComponent(descriptionTextArea);
-        setExpandRatio(descriptionTextArea, 1.0f);
 
-        setSpacing(true);
+        commentsLayout = new CommentsLayout();
+        addComponent(commentsLayout);
+        setExpandRatio(commentsLayout, 1.0f);
     }
 
-    public void showReport(Report report) {
+    public void showReport(Report report, List<Comment> comments) {
         fieldGroup = new FieldGroup(new BeanItem<Report>(report));
         fieldGroup.bind(reportSummaryField, "summary");
         fieldGroup.bind(priorityCombobox, "priority");
@@ -198,6 +206,8 @@ public class ReportEditLayout extends VerticalLayout {
 
         updateButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         updateButton.focus();
+
+        commentsLayout.showComments(comments);
     }
 
     public void hideNewWindowButton() {
@@ -221,5 +231,9 @@ public class ReportEditLayout extends VerticalLayout {
     public void enableEditableSummary() {
         reportSummaryLabel.setVisible(false);
         reportSummaryField.setVisible(true);
+    }
+
+    public void updateComments(List<Comment> comments) {
+        commentsLayout.showComments(comments);
     }
 }

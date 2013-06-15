@@ -1,5 +1,6 @@
 package com.vaadin.training.bugrap.service;
 
+import com.vaadin.training.bugrap.domain.entity.Comment;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.domain.repository.ReportQuery;
 
@@ -15,4 +16,6 @@ public interface ReportService {
     public List<Report> getReports(ReportQuery reportQuery);
 
     public Report save(Report report);
+
+    public List<Comment> getComments(Report report);
 }

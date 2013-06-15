@@ -1,11 +1,15 @@
 package com.vaadin.training.bugrap.view.reports.components;
 
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.training.bugrap.domain.entity.Comment;
 import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.view.reports.ReportsPresenter;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.Reindeer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReportPopupWindow extends Window {
 
@@ -34,14 +38,14 @@ public class ReportPopupWindow extends Window {
         setCloseShortcut(ShortcutAction.KeyCode.ESCAPE);
     }
 
-    public void showReport(Report report) {
+    public void showReport(Report report, List<Comment> comments) {
         if (report.isPersistent()) {
             setCaption("Edit a report");
         } else {
             setCaption("Create a report");
         }
 
-        reportEditLayout.showReport(report);
+        reportEditLayout.showReport(report, comments);
         reportEditLayout.hideNewWindowButton();
         reportEditLayout.enableEditableSummary();
     }
@@ -49,6 +53,6 @@ public class ReportPopupWindow extends Window {
     public void showNewReport(Report report, Project project) {
         reportEditLayout.populateDataFromProject(project);
 
-        showReport(report);
+        showReport(report, new ArrayList<Comment>());
     }
 }

@@ -5,6 +5,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.training.bugrap.domain.entity.Comment;
 import com.vaadin.training.bugrap.domain.entity.Project;
 import com.vaadin.training.bugrap.domain.entity.Report;
 import com.vaadin.training.bugrap.view.reports.components.*;
@@ -98,8 +99,8 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     }
 
     @Override
-    public void showSelectedReport(Report report) {
-        reportEditLayout.showReport(report);
+    public void showSelectedReport(Report report, List<Comment> comments) {
+        reportEditLayout.showReport(report, comments);
 
         showReportEditPanel();
     }
@@ -112,10 +113,10 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     }
 
     @Override
-    public void showReportPopup(Report report) {
+    public void showReportPopup(Report report, List<Comment> comments) {
         reportPopupWindow = initReportPopup();
 
-        reportPopupWindow.showReport(report);
+        reportPopupWindow.showReport(report, comments);
     }
 
     private ReportPopupWindow initReportPopup() {
@@ -146,6 +147,11 @@ public class ReportsOverviewViewImpl extends VerticalLayout implements ReportsOv
     @Override
     public void updateUsername(String name) {
         headerLayout.updateUserName(name);
+    }
+
+    @Override
+    public void updateComments(List<Comment> comments) {
+        reportEditLayout.updateComments(comments);
     }
 
     private void showReportEditPanel() {

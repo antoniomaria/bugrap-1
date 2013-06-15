@@ -2,6 +2,7 @@ package com.vaadin.training.bugrap.domain.repository;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.vaadin.training.bugrap.domain.entity.Comment;
 import com.vaadin.training.bugrap.domain.entity.Report;
 
 import javax.persistence.TypedQuery;
@@ -12,6 +13,7 @@ import java.util.List;
  */
 public class ReportRepository extends AbstractRepository<Report> {
 
+    public static final String FIND_COMMENTS_BY_REPORT_ID_QUERY = "select c from Comment c where c.report.id = :reportId";
 
     @Override
     protected Class<Report> getEntityClass() {
@@ -109,5 +111,13 @@ public class ReportRepository extends AbstractRepository<Report> {
             query.setParameter("summary", searchWildcard);
             query.setParameter("description", searchWildcard);
         }
+    }
+
+    public List<Comment> findComments(Report report) {
+        TypedQuery<Comment> query = em.createQuery(FIND_COMMENTS_BY_REPORT_ID_QUERY, Comment.class);
+
+        query.setParameter("reportId", report.getId());
+
+        return query.getResultList();
     }
 }
