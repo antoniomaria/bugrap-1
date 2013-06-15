@@ -118,7 +118,9 @@ public class ReportsPresenter extends Presenter {
     }
 
     public void newWindowReportButtonClicked() {
-        getView().showReportPopup(currentReport, new ArrayList<Comment>());
+        List<Comment> comments = reportService.getComments(currentReport);
+
+        getView().showReportPopup(currentReport, comments);
     }
 
     public void reportBugButtonClicked() {
@@ -157,7 +159,7 @@ public class ReportsPresenter extends Presenter {
         comment.setReport(currentReport);
         comment.setType(CommentType.COMMENT);
 
-        comment = commentService.save(comment);
+        commentService.save(comment);
 
         List<Comment> comments = reportService.getComments(currentReport);
 
