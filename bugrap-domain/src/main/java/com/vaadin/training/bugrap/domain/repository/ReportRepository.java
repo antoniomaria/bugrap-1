@@ -13,8 +13,6 @@ import java.util.List;
  */
 public class ReportRepository extends AbstractRepository<Report> {
 
-    public static final String FIND_COMMENTS_BY_REPORT_ID_QUERY = "select c from Comment c where c.report.id = :reportId";
-
     @Override
     protected Class<Report> getEntityClass() {
         return Report.class;
@@ -114,7 +112,7 @@ public class ReportRepository extends AbstractRepository<Report> {
     }
 
     public List<Comment> findComments(Report report) {
-        TypedQuery<Comment> query = em.createQuery(FIND_COMMENTS_BY_REPORT_ID_QUERY, Comment.class);
+        TypedQuery<Comment> query = em.createNamedQuery(Comment.FIND_BY_REPORT, Comment.class);
 
         query.setParameter("reportId", report.getId());
 

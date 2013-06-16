@@ -4,7 +4,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@NamedQuery(name = Comment.FIND_BY_REPORT, query = "select c from Comment c where c.report.id = :reportId")
 public class Comment extends AbstractEntity {
+
+    public static final String FIND_BY_REPORT = "comment.findByReport";
 
     @ManyToOne
     private User author;
